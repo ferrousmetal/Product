@@ -1,0 +1,43 @@
+{% extends "admin/admin.html" %}
+{% block title %}<title>admin</title>{% endblock title %}
+{% block content %}
+    <div style="margin: auto;width: 800px;">
+        <table class="table">
+            <thead>
+            <tr>
+                <th><h4 style="text-align: center">用户</h4></th>
+                <th><h4 style="text-align: center">用户等级</h4></th>
+                <th><h4 style="text-align: center">编辑</h4></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in  users %}
+                <tr>
+
+                    {% if i.vip_range_id %}
+                        <td style="text-align: center"><a>{{ i.email }}</a></td>
+                        <td style="text-align: center">{{ i.vip_range.vip }}<a href=""></a></td>
+                        <td style="text-align: center">
+                            <a href="{% url "show_list:user_edit" %}?id={{ i.id }}"
+                               class="btn btn-primary save-product-btn" type="button">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                        </td>
+                    {% else %}
+                        <td style="text-align: center"><a href="">{{ i.email }}</a></td>
+                        <td style="text-align: center">无等级</td>
+                        <td style="text-align: center">
+                            <a href="{% url "show_list:user_edit" %}?id={{ i.id }}"
+                               class="btn btn-primary save-product-btn" type="button">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                        </td>
+                    {% endif %}
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock content %}

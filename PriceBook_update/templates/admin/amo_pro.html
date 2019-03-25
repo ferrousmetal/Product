@@ -1,0 +1,183 @@
+{% extends "admin/admin.html" %}
+{% block title %}<title></title>{% endblock title %}
+{% block content %}
+    <h3 class="text-center"></h3>
+    <br><br>
+    <div class="table-responsive customer-table">
+        <a class="btn btn-primary pull-right" type="button"
+           href="{% url "show_update_list:admin_amo_add" %}">增加</a>
+        <br>
+        <table>
+            <thead>
+            <tr>
+                <th class="text-center">PID/PN</th>
+                <th class="text-center">Market Description</th>
+                <th class="text-center">Short Description</th>
+                <th class="text-center">Rules Description</th>
+                <th class="text-center">Phwab_Availability</th>
+                <th class="text-center">End of Manufacturing</th>
+                <th class="text-center">List Price</th>
+                <th class="text-center">编辑</th>
+                <th class="text-center">删除</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for j in amo_pros %}
+                <tr>
+                    <td>{{ j.pid }}</td>
+                    <td width="25%">{{ j.market_descrip }}</td>
+                    <td>{{ j.short_descrip }}</td>
+                    <td width="25%">{{ j.rules_descrip }}</td>
+                    <td>{{ j.Phwab_Availability }}</td>
+                    <td>{{ j.End_of_Manufacturing }}</td>
+                    <td>{{ j.list_price }}</td>
+                    {% if  request.session.super_user %}
+                        <td>
+                            <button class="btn btn-primary" type="button" onclick="get_msg('{{ j.id }}')">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                        </td>
+                        <td style="width: 2px;">
+                            <button onclick="del_pro('{{ j.id }}')" class="btn btn-primary" type="button"><span
+                                    class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </td>
+                    {% else %}
+                        <td></td>
+                        <td></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="drop_inner" style="display:none" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="id_number"></h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">PID/PN</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="pid_pn">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Market Description</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="market_desc">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Short Description</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="short_desc">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Rules Description</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="rules_desc">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Phwab Availability</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="phwab_ava">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">End of Manufacturing</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="end_of_man">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">List Price</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="price">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('#drop_inner').attr('style','display:none');
+                            ">关闭
+                            </button>
+                            <button type="button" class="btn btn-primary" id="save_pro">保存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function get_msg(id) {
+            $.post("{% url "show_list:amo_edit" %}",
+                {
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    "id": id
+                },
+                function (data) {
+                    if (data.res == 1) {
+                        $("#id_number").html(data.id);
+                        $("#pid_pn").val(data.pid);
+                        $("#market_desc").val(data.market_descrip);
+                        $("#short_desc").val(data.short_descrip);
+                        $("#rules_desc").val(data.rules_descrip);
+                        $("#phwab_ava").val(data.Phwab_Availability);
+                        $("#end_of_man").val(data.End_of_Manufacturing);
+                        $("#price").val(data.list_price);
+                        $("#drop_inner").attr("style", "display:block;");
+                    }
+                    if (data.res == 0) {
+                        alert(data.errmsg);
+                    }
+                });
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#save_pro").click(function () {
+                $.post("{% url "show_list:amo_save" %}",
+                    {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        "id": $("#id_number").html(),
+                        "pid": $("#pid_pn").val(),
+                        "market_descrip": $("#market_desc").val(),
+                        "short_descrip": $("#short_desc").val(),
+                        "rules_descrip": $("#rules_desc").val(),
+                        "Phwab_Availability": $("#phwab_ava").val(),
+                        "End_of_Manufacturing": $("#end_of_man").val(),
+                        "list_price": $("#price").val(),
+                    },
+                    function (data) {
+                        if (data.res == 1) {
+                            $("#drop_inner").attr("style", "display:none;");
+                        } else
+                            alert(data.msg)
+                        window.location.reload()
+                    }
+                );
+            });
+        });
+    </script>
+    <script>
+        function del_pro(id) {
+            $.post("{% url "show_list:amo_del" %}",
+                {
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    "id": id
+                },
+                function (data) {
+                    if (data.res == 1) {
+                        alert("hahahah")
+                        window.location.reload()
+                    }
+                    if (data.res == 0)
+                        alert(data.errmsg)
+                });
+        }
+    </script>
+{% endblock content %}

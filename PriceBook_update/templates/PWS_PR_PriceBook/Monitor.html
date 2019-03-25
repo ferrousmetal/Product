@@ -1,0 +1,64 @@
+{% extends "PWS_PR_PriceBook/base.html" %}
+{% block title %}<title>Monitor</title>{% endblock title %}
+{% block Z_js %}{% endblock Z_js %}
+{% block content %}
+
+    <h3 class="text-center">Monitor</h3>
+    <div class="table-responsive customer-table">
+        <table>
+            <thead>
+            <tr class="table-caption">
+                <th colspan="12" class="text-center">HP Monitor for Workstation</th>
+            </tr>
+            <tr>
+                <th class="text-center">机型</th>
+                <th class="text-center">Part Number</th>
+                <th class="text-center">尺寸</th>
+                <th class="text-center">分辨率</th>
+                <th class="text-center">接口</th>
+                <th class="text-center">菊链布线支持</th>
+                <th class="text-center">自带线缆</th>
+                <th class="text-center">特性</th>
+                <th class="text-center">List with VAT</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in contacts %}
+                <tr class="info">
+                    <th colspan="10" class="text-center">{{ i.name }}</th>
+                </tr>
+
+                {% for j in i.monitor_product_set.all %}
+                    <tr>
+                        <td>{{ j.name }}</td>
+                        <td>{{ j.part_number }}</td>
+                        <td>{{ j.size }}</td>
+                        <td>{{ j.display_resolution }}</td>
+                        <td>{{ j.port }}</td>
+                        <td>{{ j.daisy_chain }}</td>
+                        <td>{{ j.byo }}</td>
+                        <td>{{ j.character }}</td>
+                        <td>{{ j.price }}</td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination">
+    <span class="step-links">
+        {% if contacts.has_previous %}
+            <a href="?page={{ contacts.previous_page_number }}">上一页</a>
+        {% endif %}
+
+        <span class="current">
+             {{ contacts.number }} / {{ contacts.paginator.num_pages }}
+        </span>
+
+        {% if contacts.has_next %}
+            <a href="?page={{ contacts.next_page_number }}">下一页</a>
+        {% endif %}
+    </span>
+    </div>
+{% endblock content %}
+{% block Z_html %}{% endblock Z_html %}

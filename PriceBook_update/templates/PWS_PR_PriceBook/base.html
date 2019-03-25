@@ -1,0 +1,375 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block title %}<title>常用网站</title>{% endblock title %}
+
+    <script src="{% static "jquery-3.1.1.js" %}"></script>
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <link rel="stylesheet" href="{% static "mycss/custom.css" %}">
+    {% block Z_js %}
+        <script>
+            var pathName = window.location.pathname;
+            var sum = 0;
+            var item = 0;
+            $(document).ready(function () {
+                function calculateCheckedPrice() {
+                    sum = 0;
+                    item = 0;
+                    $('input[type="checkbox"]:checked').each(function () {
+                        var dataIndexNumber = $(this).data("indexNumber");
+                        var itemPrice = $("#" + dataIndexNumber).text();
+                        sum += parseInt(itemPrice)
+                    })
+                    $('input[type="radio"]:checked').each(function () {
+                        var dataIndexNumber = $(this).data("indexNumber");
+                        var itemPrice = $("#" + dataIndexNumber).text();
+                        sum += parseInt(itemPrice)
+                    })
+                    item += $('input[type="checkbox"]:checked').length + $('input[type="radio"]:checked').length;
+                    $("#total-price").text(sum);
+                    $("#total-item").text(item);
+                    $("#auto-total-price").text(sum);
+                    $("#auto-total-item").text(item);
+                    return sum;
+                }
+
+                function calculateDiscountPrice(totalPrice) {
+                    $.post("/user_disconut/",
+                        {
+                            csrfmiddlewaretoken: "{{ csrf_token }}",
+                            "totalPrice": totalPrice
+                        },
+                        function (data) {
+                            if (data.res == 1) {
+                                $("#discount-price").text(data.totalPrice)
+                            } else {
+                                alert(data.errmsg)
+                            }
+                        });
+                }
+
+                 $('input[type="checkbox"]').on('change', function () {
+                    if ($(this).data("index") == "必选1项") {
+                         $('input[name="' + this.name + '"]').not(this).prop('checked', false);
+                    }
+                     var totalPrice = calculateCheckedPrice();
+                     calculateDiscountPrice(totalPrice)
+                 });
+                 $('input[type="radio"]').on('change', function () {
+                     var totalPrice = calculateCheckedPrice();
+                     calculateDiscountPrice(totalPrice)
+                 });
+
+                <!--显示并编辑单个产品信息start-->
+                function get_msg(id) {
+                    $.post("{% url "show_list:edit" %}",
+                        {
+                            csrfmiddlewaretoken: "{{ csrf_token }}",
+                            "id": id
+                        },
+                        function (data) {
+                            if (data.res == 1) {
+                                $("#id_number").html(data.id);
+                                $("#part_number").val(data.name);
+                                $("#product_des").val(data.descrip);
+                                $("#rules").val(data.rules_descrip);
+                                $("#end_of_man").val(data.End_of_Manufacturing);
+                                $("#cecp").val(data.CECP_EStar);
+                                $("#price").val(data.List_Price);
+                                $("#qty").val(data.Qty);
+                                $("#drop_inner").attr("style", "display:block;");
+                            }
+                            if (data.res == 0) {
+                                alert(data.errmsg);
+                            }
+                        });
+                }
+
+                <!--显示并编辑单个产品信息end-->
+
+                <!--保存单个产品信息start-->
+
+                $(".save-product-btn").on("click", function () {
+                    var id = $(this).attr("id").split('-')[1];
+                    get_msg(id)
+                });
+                $(".delete-product-btn").on("click", function () {
+                    var id = $(this).attr("id").split('-')[1];
+                    del_pro(id)
+                });
+                $("#save_pro").click(function () {
+                    $.post("{% url "show_list:z_save" %}",
+                        {
+                            csrfmiddlewaretoken: '{{ csrf_token }}',
+                            "id": $("#id_number").html(),
+                            "name": $("#part_number").val(),
+                            "descrip": $("#product_des").val(),
+                            "rules_descrip": $("#rules").val(),
+                            "End_of_Manufacturing": $("#end_of_man").val(),
+                            "CECP_EStar": $("#cecp").val(),
+                            "List_Price": $("#price").val(),
+                            "Qty": $("#qty").val()
+                        },
+                        function (data) {
+                            if (data.res == 1) {
+                                $("#drop_inner").attr("style", "display:none;");
+                                window.location.reload()
+                            } else
+                                alert(data.msg)
+                        }
+                    );
+                });
+                <!--显示单个产品信息end-->
+
+                <!--删除单个产品start-->
+                function del_pro(id) {
+                    $.post("{% url 'show_list:admin_z_product_del' %}",
+                        {
+                            csrfmiddlewaretoken: "{{ csrf_token }}",
+                            "id": id
+                        },
+                        function (data) {
+                            if (data.res == 1) {
+                                window.location.reload();
+                                alert("删除成功")
+                            } else {
+                                alert(data.errmsg)
+                            }
+                        });
+                }
+
+                // 模态框显示
+                /*
+                $("#rule_button").click(function () {
+                    if (pathName === "/z240/" && !checkIsValid()) {
+                        return false
+                    }
+                    $("#add_rules").attr("style", "display:block;");
+                });*/
+                // <!--删除单个产品end-->
+                // <!--保存配置start-->
+                    // $("#rule_button").click(function () {
+                    //     if (pathName === "/z240/" && !checkIsValid()) {
+                    //         return false
+                    //     }
+                    //     if (pathName === "/z8_g4/") {
+                    //         var length = $('input[name="Step 7E:GraphicsConnectors"]:checked').length;
+
+                    //         if (length < 1) {
+                    //             alert("Step 7E:GraphicsConnectors 至少选一项");
+                    //             return false
+                    //         }
+                    //     }
+
+                    //     var radios = $('input[type="radio"]:checked');
+                    //     var checkeds = $('input[type="checkbox"]:checked');
+                    //     var array_radios = [];
+                    //     var array_checkeds = [];
+                    //     for (var i = 0; i < radios.length; i++) {
+                    //         array_radios.push($(radios[i]).attr("data-index-number"))
+                    //     }
+                    //     for (var j = 0; j < checkeds.length; j++) {
+                    //         array_checkeds.push($(checkeds[j]).attr("data-index-number"))
+                    //     }
+                    //     $.post("",
+                    //         {
+                    //             csrfmiddlewaretoken: "",
+                    //             "rules_id": "",
+                    //             "radios": JSON.stringify(array_radios),
+                    //             "checkeds": JSON.stringify(array_checkeds),
+                    //         },
+                    //         function (data) {
+                    //             if (data.msg == 1) {
+                    //                 window.location.reload()
+                    //             }
+                    //         });
+                    // });
+            });
+        </script>
+        <!--保存配置end-->
+    {% endblock Z_js %}
+    <style>
+        .customer-table table .table-caption th {
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+    </style>
+</head>
+<body class="body-content">
+<div>
+    {% block nav %}
+        <nav class="navbar navbar-default navbar-fixed-top" style="border-radius: 0;margin-bottom: 10px;">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{% url "show_list:index" %}">常用网站</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">产品
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url "show_list:ISV_sales_tool" %}">ISV销售工具</a></li>
+                                {% for category in category_list %}
+                                    <li>
+                                        <a href="{% url "show_list:Z2_mini_G4" %}?id={{ category.id }}">{{ category.name }}</a>
+                                    </li>
+                                {% endfor %}
+                                <li><a href="{% url "show_list:monitor" %}">Monitor</a></li>
+                                <li><a href="{% url "show_list:amo" %}">AMO</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">服务
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url "show_update_list:pao_inner" %}">保内升级服务</a></li>
+                                <li><a href="{% url "show_update_list:pao_out" %}">保外延长服务</a></li>
+                                <li><a href="{% url "show_list:custom_deploy" %}">定制及部署服务</a></li>
+                                <li><a href="{% url "show_list:customadded_service" %}">增值服务</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if request.session.super_user %}
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    {{ request.session.session_email }}
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{% url "show_list:admin_auth" %}">管理员管理</a></li>
+                                    <li><a href="{% url "show_list:user_label_show" %}">我的配置</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{% url "show_list:logout" %}"><span
+                                    class="glyphicon glyphicon-log-out"></span>退出</a></li>
+                        {% elif request.session.session_email %}
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    {{ request.session.session_email }}
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{% url "show_list:user_label_show" %}">我的配置</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{% url "show_list:logout" %}"><span
+                                    class="glyphicon glyphicon-log-out"></span>退出</a></li>
+
+
+                        {% else %}
+                            <li><a href="{% url "show_update_list:register" %}"><span
+                                    class="glyphicon glyphicon-user"></span>注册</a></li>
+                            <li><a href="{% url "show_update_list:login" %}"><span
+                                    class="glyphicon glyphicon-log-in"></span>登录</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    {% endblock nav %}
+    {% block Z_html %}
+        <div id="drop_inner" style="display:none" class="modal" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="id_number"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">部件定货号</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="part_number">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">产品描述</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="product_des">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">配置规则</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="rules">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">End of Manufacturing</label>
+                                <div class="col-sm-10">
+                                    <input type="date" class="form-control" id="end_of_man">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">CECP & EStar</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="cecp">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">List Price with VAT</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="price">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Qty</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="qty">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('#drop_inner').attr('style','display:none');
+                            ">关闭
+                                </button>
+                                <button type="button" class="btn btn-primary" id="save_pro">保存</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="add_rules" style="display:none" class="modal" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="id_number">给该次配置建立一个标签</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">规则标签</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="rule_label">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('#add_rules').attr('style','display:none');
+                            ">关闭
+                                </button>
+                                <button type="button" class="btn btn-primary" id="save_rule">保存</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock Z_html %}
+    {% block content %}{% endblock content %}
+    {% block footer %}{% endblock footer %}
+</div>
+</body>
+</html>

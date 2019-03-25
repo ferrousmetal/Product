@@ -1,0 +1,193 @@
+{% extends "PWS_PR_PriceBook/base.html" %}
+{% block title %}<title>我的配置详细</title>{% endblock title %}
+{% block content %}
+    <div style="margin: 0 auto;width: 1200px;">
+        <h3 style="text-align: center;">我的详细配置</h3>
+    </div>
+    <div style="margin: auto;width: 1200px;" class="table-responsive customer-table">
+        <button type="button" class="btn btn-primary add-parts-settings pull-right" data-toggle="modal"
+                data-target="#edit-settings">编辑
+        </button>
+        <br>
+        <table>
+            <thead>
+            <tr class="table-caption">
+                <th style="text-align: center;">所属部件</th>
+                <th style="text-align: center;">部件定货号</th>
+                <th style="text-align: center;">产品描述</th>
+                <th style="text-align: center;">End of Manufacturing</th>
+                <th style="text-align: center;">List Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for pros in pro_list %}
+                <tr class="pro-step-name">
+                    {% for stem,pro in pros.items %}
+                        <td style="text-align: center;">{{ stem }}</td>
+                        <td style="text-align: center;" class="product-part-no">{{ pro.name }}</td>
+                        <td style="text-align: center;">{{ pro.descrip }}</td>
+                        <td style="text-align: center;">{{ pro.End_of_Manufacturing }}</td>
+                        <td style="text-align: center;">{{ pro.List_Price }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <!-- <a href="" class="btn btn-primary add-parts-settings" type="button">增加</a> -->
+        <div class="modal fade" id="edit-settings" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">编辑配置</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="category-page">
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary check-isvalid">检查选项是否合格</button>
+                        <button type="button" class="btn btn-primary rule-button" id="rule_button">保存</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pull-right" style="color:brown;">
+            <p><strong>选择产品: <span id="total-item">{{ qty }}</span> 项 </strong></p>
+            <p><strong>单价总计: <span id="total-price">{{ count }}</span> CNY</strong></p>
+        </div>
+    </div>
+
+    <script>
+        var categoryId = {{ z_category }};
+        var pro_array = JSON.parse('{{ pro_array | escapejs }}');
+        var cateName, stepName, rulesID;
+        function checkIsValid() {
+            // Z240 Step 8C 如果PCIE硬盘没有选，则必选一项
+            var lengthHD = $("input[name='Step 8C: HARD DRIVE 1']:checked").length;
+            var lengthPCIE = $("input[name='Step 8A: INTERNAL PCIE STORAGE']:checked").length;
+            if (lengthPCIE === 0 && lengthHD === 0) {
+                alert("如果PCIE硬盘没有选，则Step 8C: HARD DRIVE 1必选一项");
+                // return false
+            }
+            // 第二款硬盘选择时，需要选硬盘线
+            var lengthHD2 = $("input[name='Step 8D: HARD DRIVE 2']:checked").length;
+            var lengthCable = $("input[name='Step 8E: CABLE']:checked").length;
+            if (lengthHD2 > 0 && lengthCable === 0) {
+                alert('第二款硬盘选择时，需要选硬盘线');
+                // return false
+            }
+            return true
+        }
+        $(".add-parts-settings").on("click", function () {
+            $.post("{% url 'show_list:test' %}",
+                {
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    "id": categoryId,
+                    "label":{{ id }}
+                },
+                function (data) {
+                    if (data.res == 1) {
+                        $(".category-page").html(data.html);
+                        $(".navbar").eq(1).css("display", "none");
+                        cateName = data.cateName;
+                        stepName = JSON.parse(data.step_list1);
+                        rulesID = data.rules_id
+                        // Z240 Step 8D 有第一块硬盘时才可选; 且只能选1项
+                        // Z240 Step 8F 第三块硬盘选项，必须已选择第二块硬盘
+                        if (cateName === "Z240") {
+                            console.log(cateName === "Z240")
+                            $("input[name='Step 8D: HARD DRIVE 2']").prop("disabled", true);
+                            $("input[name='Step 8F: HARD DRIVE 3']").prop("disabled", true);
+                            $("input[name='Step 8C: HARD DRIVE 1']").on("change", function () {
+                                if ($("input[name='Step 8C: HARD DRIVE 1']:checked").length > 0) {
+                                    $("input[name='Step 8D: HARD DRIVE 2']").prop("disabled", false)
+                                } else {
+                                    $("input[name='Step 8D: HARD DRIVE 2']").prop("disabled", true)
+                                }
+                            });
+                            $("input[name='Step 8D: HARD DRIVE 2']").on("change", function () {
+                                if (this.checked) {
+                                    $('input[name="' + this.name + '"]').not(this).prop('checked', false);
+                                    $("input[name='Step 8F: HARD DRIVE 3']").prop("disabled", false)
+                                } else {
+                                    $("input[name='Step 8F: HARD DRIVE 3']").prop("disabled", true)
+                                }
+                            });
+                        }
+                        // 还原用户配置表的选择
+                        $('input[type="checkbox"]').prop("checked", false);
+                        $('input[type="radio"]').prop("checked", false);
+                        for (var i = 0; i < pro_array.length; i++) {
+                            new_pro_array = pro_array[i];
+                            if (new_pro_array.match(/#/)) {
+                                new_pro_array = new_pro_array.split("#")[0];
+                                $("input[id^=" + new_pro_array + "]").prop("checked", true)
+                                console.log(1)
+                            } else {
+                                console.log(2)
+                                $("#" + new_pro_array).prop("checked", true)
+                            }
+                        }
+                    } else {
+                        alert(data.errmsg)
+                    }
+                });
+        });
+        $(".check-isvalid").on("click", function () {
+            for (var i = 0; i < stepName.length; i++) {
+                var dataLess = $(`input[name="${stepName[i]}"]`).eq(0).data("less")
+                var dataMore = $(`input[name="${stepName[i]}"]`).eq(0).data("more")
+                var length = $(`input[name="${stepName[i]}"]:checked`).length
+                if (dataLess != 0) {
+                    if (length < dataLess || length > dataMore) {
+                        alert(stepName[i] + "至少选" + dataLess + "最多选" + dataMore + ", 请确认" + stepName[i] + "是否选择正确")
+                        return
+                    }
+                } else {
+                    if (length > dataMore) {
+                        alert(stepName[i] + "最多选" + dataMore + ", 请确认" + stepName[i] + "是否选择正确")
+                        return
+                    }
+                }
+            }
+            if (cateName === "Z240" && !checkIsValid()) {
+                return false
+            }
+            if (cateName === "Z8 G4") {
+                var length = $('input[name="Step 7E:GraphicsConnectors"]:checked').length;
+                if (length < 1) {
+                    alert("Step 7E:GraphicsConnectors 至少选一项");
+                    return false
+                }
+            }
+            alert("配置选项OK")
+        })
+        $("#rule_button").click(function () {
+            var radios = $('input[type="radio"]:checked');
+            var checkeds = $('input[type="checkbox"]:checked');
+            var array_radios = [];
+            var array_checkeds = [];
+            for (var i = 0; i < radios.length; i++) {
+                array_radios.push($(radios[i]).attr("data-index-number"))
+            }
+            for (var j = 0; j < checkeds.length; j++) {
+                array_checkeds.push($(checkeds[j]).attr("data-index-number"))
+            }
+            $.post("{% url "show_list:save_user_rules" %}",
+                {
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    "rules_id": rulesID,
+                    "radios": JSON.stringify(array_radios),
+                    "checkeds": JSON.stringify(array_checkeds),
+                },
+                function (data) {
+                    if (data.msg == 1) {
+                        window.location.reload()
+                    }
+                });
+        });
+    </script>
+{% endblock content %}

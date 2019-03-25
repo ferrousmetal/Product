@@ -1,0 +1,43 @@
+{% extends "PWS_PR_PriceBook/base.html" %}
+{% block title %}<title>我的配置</title>{% endblock title %}
+{% block content %}
+    <div style="margin: 60px auto;max-width: 1200px;">
+        {% if labels %}
+            <div class="table-responsive customer-table">
+            <a class="btn btn-primary pull-right" href="{% url "show_list:show_category" %}" type="button">新建配置</a>
+            <h3 class="text-center">我的配置</h3>
+            <br>
+                <table>
+                    <thead>
+                    <tr class="table-caption">
+                        <th><h4 style="text-align: center">配置标签名</h4></th>
+                        <th><h4 style="text-align: center">部件数量</h4></th>
+                        <th><h4 style="text-align: center">部件总价</h4></th>
+                        <th><h4 style="text-align: center">删除</h4></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for label in labels %}
+                        <tr>
+                            <td style="text-align: center"><a
+                                    href="{% url "show_list:user_rules_show" %}?id={{ label.id }}">{{ label.name }}</a>
+                            </td>
+                            <td style="text-align: center">{{ label.pro_number }}</td>
+                            <td style="text-align: center">{{ label.total_count }}</td>
+                            <td style="width: 10px">
+                                <a href="{% url "show_list:del_user_label" %}?id={{ label.id }}" class="btn btn-primary"
+                                   type="button"><span
+                                        class="glyphicon glyphicon-trash"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <h2 style="text-align: center">你还没保存任何组装</h2>
+            <h2 style="text-align: center"><a href="{% url "show_list:show_category" %}" type="button">新建配置规则?</a></h2>
+        {% endif %}
+    </div>
+{% endblock content %}

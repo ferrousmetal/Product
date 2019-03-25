@@ -1,0 +1,212 @@
+{% extends "PWS_PR_PriceBook/base.html" %}
+{% block title %}<title>保内升级服务</title>{% endblock title %}
+{% block Z_js %}{% endblock Z_js %}
+{% block content %}
+
+    <h3 class="text-center">保内升级服务</h3>
+    <div class="table-responsive customer-table">
+        <table>
+            <thead>
+            <tr class="table-caption">
+                <th colspan="10" class="text-center">HP Monitor for Workstation</th>
+            </tr>
+            <tr>
+                <th class="text-center">PL</th>
+                <th class="text-center">HW Product Model</th>
+                <th class="text-center">Standard Warranty</th>
+                <th class="text-center">Formulation</th>
+                <th class="text-center">Upgrade Service Description</th>
+                <th class="text-center">CarePack Part</th>
+                <th class="text-center">GL Price</th>
+                <th class="text-center">Promotion Price</th>
+                <th class="text-center">编辑</th>
+                <th class="text-center">删除</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for j in contacts %}
+                <tr>
+                    <td>{{ j.PL }}</td>
+                    <td>{{ j.HW_Product_Model }}</td>
+                    <td>{{ j.Standard_Warranty }}</td>
+                    <td>{{ j.Formulation }}</td>
+                    <td>{{ j.Upgrade_Service_Description }}</td>
+                    <td>{{ j.CarePack_Part }}</td>
+                    <td>{{ j.GL_Price }}</td>
+                    <td>{{ j.Promotion_Price }}</td>
+                    {% if  request.session.super_user %}
+                        <td>
+                            <button class="btn btn-primary" type="button" onclick="get_msg('{{ j.id }}')">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                        </td>
+                        <td style="width: 2px;">
+                            <button onclick="del_pro('{{ j.id }}')" class="btn btn-primary" type="button"><span
+                                    class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </td>
+                    {% else %}
+                        <td></td>
+                        <td></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination">
+    <span class="step-links">
+        {% if contacts.has_previous %}
+            <a href="?page={{ contacts.previous_page_number }}">上一页</a>
+        {% endif %}
+
+        <span class="current">
+             {{ contacts.number }} / {{ contacts.paginator.num_pages }}
+        </span>
+
+        {% if contacts.has_next %}
+            <a href="?page={{ contacts.next_page_number }}">下一页</a>
+        {% endif %}
+    </span>
+    </div>
+    <div id="drop_inner" style="display:none" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="id_number"></h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">PL</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="pl">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">HW Product Model</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="hw_pro_model">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Standard Warranty</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="stad_warry">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Formulation</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="formulation">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Upgrade Service
+                                Description</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="uo_ser_desc">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">CarePack Part</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="carepark_part">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">GL Price</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="gl_price">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Promotion Price</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="promotion_price">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('#drop_inner').attr('style','display:none');
+                            ">关闭
+                            </button>
+                            <button type="button" class="btn btn-primary" id="save_pro">保存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function get_msg(id) {
+            $.post("{% url "show_list:pao_inner_edit" %}",
+                {
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    "id": id
+                },
+                function (data) {
+                    if (data.res == 1) {
+                        $("#id_number").html(data.id);
+                        $("#pl").val(data.PL);
+                        $("#hw_pro_model").val(data.HW_Product_Model);
+                        $("#stad_warry").val(data.Standard_Warranty);
+                        $("#formulation").val(data.Formulation);
+                        $("#uo_ser_desc").val(data.Upgrade_Service_Description);
+                        $("#carepark_part").val(data.CarePack_Part);
+                        $("#gl_price").val(data.GL_Price);
+                        $("#promotion_price").val(data.Promotion_Price);
+                        $("#drop_inner").attr("style", "display:block;");
+                    }
+                    if (data.res == 0) {
+                        alert(data.errmsg);
+                    }
+                });
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#save_pro").click(function () {
+                $.post("{% url "show_list:pao_inner_save" %}",
+                    {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        "id": $("#id_number").html(),
+                        "PL": $("#pl").val(),
+                        "HW_Product_Model": $("#hw_pro_model").val(),
+                        "Standard_Warranty": $("#stad_warry").val(),
+                        "Formulation": $("#formulation").val(),
+                        "Upgrade_Service_Description": $("#uo_ser_desc").val(),
+                        "CarePack_Part": $("#carepark_part").val(),
+                        "GL_Price": $("#gl_price").val(),
+                        "Promotion_Price": $("#promotion_price").val()
+                    },
+                    function (data) {
+                        if (data.res == 1) {
+                            $("#drop_inner").attr("style", "display:none;");
+                        } else
+                            alert(data.msg)
+                        window.location.reload()
+                    }
+                );
+            });
+        });
+    </script>
+    <script>
+        function del_pro(id) {
+            $.post("{% url "show_list:pao_inner_del" %}",
+                {
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    "id": id
+                },
+                function (data) {
+                    if (data.res == 1) {
+                        alert("out")
+                        window.location.reload()
+                    }
+                    if (data.res == 0)
+                        alert(data.errmsg)
+                });
+        }
+    </script>
+{% endblock content %}
+{% block Z_html %}{% endblock Z_html %}

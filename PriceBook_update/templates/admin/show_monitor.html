@@ -1,0 +1,200 @@
+{% extends "admin/admin.html" %}
+{% block title %}<title></title>{% endblock title %}
+{% block admin_js %}{% endblock admin_js %}
+{% block content %}
+    <h3 class="text-center"></h3>
+    <br><br>
+    <div class="table-responsive customer-table">
+        <a class="btn btn-primary pull-right" type="button"
+           href="{% url "show_update_list:admin_minitor_add" %}">增加</a>
+        <br>
+        <table>
+            <thead>
+            <tr>
+            <tr>
+                <th class="text-center">机型</th>
+                <th class="text-center">Part Number</th>
+                <th class="text-center">尺寸</th>
+                <th class="text-center">分辨率</th>
+                <th class="text-center">接口</th>
+                <th class="text-center">菊链布线支持</th>
+                <th class="text-center">自带线缆</th>
+                <th class="text-center">特性</th>
+                <th class="text-center">List with VAT</th>
+                <th class="text-center">编辑</th>
+                <th class="text-center">删除</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for j in monitor_pros %}
+                <tr>
+                    <td>{{ j.name }}</td>
+                    <td>{{ j.part_number }}</td>
+                    <td>{{ j.size }}</td>
+                    <td>{{ j.display_resolution }}</td>
+                    <td>{{ j.port }}</td>
+                    <td>{{ j.daisy_chain }}</td>
+                    <td>{{ j.byo }}</td>
+                    <td>{{ j.character }}</td>
+                    <td>{{ j.price }}</td>
+                    <td>
+                        <button class="btn btn-primary" type="button" onclick="get_msg('{{ j.id }}')">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                    </td>
+                    <td style="width: 2px;">
+                        <button onclick="del_pro('{{ j.id }}')" class="btn btn-primary" type="button"><span
+                                class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="drop_inner" style="display:none" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="id_number"></h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">机型</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Part Number</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="part_number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">尺寸</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="size">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">分辨率</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="display_resolution">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">接口</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="port">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">菊链布线支持</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="daisy_chain">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">自带线缆</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="byo">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">特性</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="character">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">List with VAT</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="price">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('#drop_inner').attr('style','display:none');
+                            ">关闭
+                            </button>
+                            <button type="button" class="btn btn-primary" id="save_pro">保存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function get_msg(id) {
+            $.post("{% url "show_list:monitor_edit" %}",
+                {
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    "id": id
+                },
+                function (data) {
+                    if (data.res == 1) {
+                        $("#id_number").html(data.id);
+                        $("#name").val(data.name);
+                        $("#part_number").val(data.part_number);
+                        $("#size").val(data.size);
+                        $("#display_resolution").val(data.display_resolution);
+                        $("#port").val(data.port);
+                        $("#daisy_chain").val(data.daisy_chain);
+                        $("#byo").val(data.byo);
+                        $("#character").val(data.character);
+                        $("#price").val(data.price);
+                        $("#drop_inner").attr("style", "display:block;");
+                    }
+                    if (data.res == 0) {
+                        alert(data.errmsg);
+                    }
+                });
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#save_pro").click(function () {
+                $.post("{% url "show_list:monitor_save" %}",
+                    {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        "id": $("#id_number").html(),
+                        "name": $("#name").val(),
+                        "part_number": $("#part_number").val(),
+                        "size": $("#size").val(),
+                        "display_resolution": $("#display_resolution").val(),
+                        "port": $("#port").val(),
+                        "daisy_chain": $("#daisy_chain").val(),
+                        "byo": $("#byo").val(),
+                        "character": $("#character").val(),
+                        "price": $("#price").val(),
+                    },
+                    function (data) {
+                        if (data.res == 1) {
+                            $("#drop_inner").attr("style", "display:none;");
+                        } else
+                            alert(data.msg)
+                        window.location.reload()
+                    }
+                );
+            });
+        });
+    </script>
+    <script>
+        function del_pro(id) {
+            $.post("{% url "show_list:monitor_del" %}",
+                {
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    "id": id
+                },
+                function (data) {
+                    if (data.res == 1) {
+                        alert("monitor")
+                        window.location.reload()
+                    }
+                    if (data.res == 0)
+                        alert(data.errmsg)
+                });
+        }
+    </script>
+{% endblock content %}

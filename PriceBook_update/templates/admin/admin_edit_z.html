@@ -1,0 +1,92 @@
+{% extends "PWS_PR_PriceBook/base.html" %}
+{% block title %}<title>Admin Z系列</title>{% endblock title %}
+{% block nav %}
+    <nav class="navbar navbar-default" style="border-radius: 0;margin-bottom: 10px;">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url "show_list:admin_auth" %}">返回</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    {% if request.session.session_email %}
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                {{ request.session.session_email }}
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url "show_list:admin_auth" %}">管理员管理</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{% url "show_list:logout" %}"><span
+                                class="glyphicon glyphicon-log-out"></span>退出</a></li>
+                    {% else %}
+                        <li><a href="{% url "show_update_list:register" %}"><span
+                                class="glyphicon glyphicon-user"></span> 注册</a></li>
+                        <li><a href="{% url "show_update_list:login" %}"><span
+                                class="glyphicon glyphicon-log-in"></span>登录</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock nav %}
+{% block content %}
+    <div style="margin: auto;width: 800px;">
+        <form class="form-horizontal" method="post">
+            <h4 style="text-align: right;">{{ category.name }}</h4>
+            {% csrf_token %}
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <input type="hidden" class="form-control"  value="{{ category.id }}" name="step_id">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">部件定货号</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">产品描述</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="descrip">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">配置规则(Rules Description)</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="rules_descrip">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">End of Manufacturing</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" name="End_of_Manufacturing">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">CECP & EStar</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="CECP_EStar">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">List Price with VAT</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="List_Price">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default">增加</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
+{% block Z_html %}{% endblock Z_html %}

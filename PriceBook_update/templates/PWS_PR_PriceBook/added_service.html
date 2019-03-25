@@ -1,0 +1,367 @@
+{% extends "PWS_PR_PriceBook/base.html" %}
+{% block title %}<title>增值服务</title>{% endblock title %}
+{% block Z_js %}{% endblock Z_js %}
+{% block content %}
+    <h3 class="text-center">增值服务</h3>
+    <div class="table-responsive customer-table">
+        <div>
+            <strong>FY15 PPS CDS<span></span></strong>
+        </div>
+        <div class="pull-left">
+            <strong>FY15 PPS CarePack Pricng Book - 2014/12/01<span></span></strong>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th class="text-center">Service Style</th>
+                <th class="text-center">HW PL</th>
+                <th class="text-center">HW Product Model</th>
+                <th class="text-center">Wty Style</th>
+                <th class="text-center">Per_incident</th>
+                <th class="text-center">CarePack of Service Option</th>
+                <th class="text-center">CarePack Part</th>
+                <th class="text-center">GL Price</th>
+                <th class="text-center">编辑</th>
+                <th class="text-center">删除</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for j in added_service_pps %}
+                <tr>
+                    <td>{{ j.Service_Style }}</td>
+                    <td>{{ j.Hw_Pl }}</td>
+                    <td>{{ j.HW_Product_Model }}</td>
+                    <td>{{ j.Wty_Style }}</td>
+                    <td>{{ j.Per_incident }}</td>
+                    <td>{{ j.CarePack_of_Service_Option }}</td>
+                    <td>{{ j.CarePack_Part }}</td>
+                    <td>{{ j.GL_Price }}</td>
+                    {% if  request.session.super_user %}
+                        <td>
+                            <button class="btn btn-primary" type="button" onclick="get_msg_a('{{ j.id }}')">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                        </td>
+                        <td style="width: 2px;">
+                            <button onclick="del_pro_a('{{ j.id }}')" class="btn btn-primary" type="button"><span
+                                    class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </td>
+                    {% else %}
+                        <td></td>
+                        <td></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="pull-left">
+            <strong>Additional software value-added services - 附加的软件增值性服务<span></span></strong>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th class="text-center">服务类型</th>
+                <th class="text-center">预计时间</th>
+                <th class="text-center">HP Description</th>
+                <th class="text-center">CarePack Part</th>
+                <th class="text-center">GL Price/Unit</th>
+                <th class="text-center">活动价格有效期至2015年1月31日</th>
+                <th class="text-center">编辑</th>
+                <th class="text-center">删除</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for j in added_service_software %}
+                <tr>
+                    <td>{{ j.service_name }}</td>
+                    <td>{{ j.servie_type }}</td>
+                    <td>{{ j.HP_Description }}</td>
+                    <td>{{ j.CarePack_Part }}</td>
+                    <td>{{ j.GL_Price_Unit }}</td>
+                    <td>{{ j.promotion }}</td>
+                    {% if  request.session.super_user %}
+                        <td>
+                            <button class="btn btn-primary" type="button" onclick="get_msg_b('{{ j.id }}')">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                        </td>
+                        <td style="width: 2px;">
+                            <button onclick="del_pro_b('{{ j.id }}')" class="btn btn-primary" type="button"><span
+                                    class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </td>
+                    {% else %}
+                        <td></td>
+                        <td></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="drop_inner_a" style="display:none" class="modal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="id_number_a"></h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Service Style</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="service_style_a">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">HW PL</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="hw_pl_a">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">HW Product Model</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="hw_pro_a">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Wty Style</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="wty_style_a">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Per incident</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="per_incient_a">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">CarePack of Service
+                                Option</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="care_option_a">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">CarePack Part</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="care_park_a">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">GL Price</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="gl_price_a">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('#drop_inner_a').attr('style','display:none');
+                            ">关闭
+                            </button>
+                            <button type="button" class="btn btn-primary" id="save_pro_a">保存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function get_msg_a(id) {
+            $.post("{% url "show_update_list:pps_edit" %}",
+                {
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    "id": id
+                },
+                function (data) {
+                    if (data.res == 1) {
+                        $("#id_number_a").html(data.id);
+                        $("#service_style_a").val(data.Service_Style);
+                        $("#hw_pl_a").val(data.Hw_Pl);
+                        $("#hw_pro_a").val(data.HW_Product_Model);
+                        $("#wty_style_a").val(data.Wty_Style);
+                        $("#per_incient_a").val(data.Per_incident);
+                        $("#care_option_a").val(data.CarePack_of_Service_Option);
+                        $("#care_park_a").val(data.CarePack_Part);
+                        $("#gl_price_a").val(data.GL_Price);
+                        $("#drop_inner_a").attr("style", "display:block;");
+                    }
+                    if (data.res == 0) {
+                        alert(data.errmsg);
+
+                    }
+                });
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#save_pro_a").click(function () {
+                $.post("{% url "show_list:pps_save" %}",
+                    {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        "id": $("#id_number_a").html(),
+                        "Service_Style": $("#service_style_a").val(),
+                        "Hw_Pl": $("#hw_pl_a").val(),
+                        "HW_Product_Model": $("#hw_pro_a").val(),
+                        "Wty_Style": $("#wty_style_a").val(),
+                        "Per_incident": $("#per_incient_a").val(),
+                        "CarePack_of_Service_Option": $("#care_option_a").val(),
+                        "CarePack_Part": $("#care_park_a").val(),
+                        "GL_Price": $("#gl_price_a").val(),
+                    },
+                    function (data) {
+                        if (data.res == 1) {
+                            $("#drop_inner_a").attr("style", "display:none;");
+                        } else
+                            alert(data.msg)
+                        window.location.reload()
+                    }
+                );
+            });
+        });
+    </script>
+    <script>
+        function del_pro_a(id) {
+            $.post("{% url "show_list:pps_del" %}",
+                {
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    "id": id
+                },
+                function (data) {
+                    if (data.res == 1) {
+                        alert("ppsa")
+                        window.location.reload()
+                    }
+                    if (data.res == 0)
+                        alert(data.errmsg)
+                });
+        }
+    </script>
+    <div id="drop_inner_b" style="display:none" class="modal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="id_number_b"></h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">服务名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="service_style_b">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">服务类型</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="hw_type_b">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">HP Description</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="hw_des_b">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">CarePack Part</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="care_b">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">GL Price / Unit</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="gl_price_b">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">促销价格</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="option_b">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('#drop_inner_b').attr('style','display:none');
+                            ">关闭
+                            </button>
+                            <button type="button" class="btn btn-primary" id="save_pro_b">保存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function get_msg_b(id) {
+            $.post("{% url "show_update_list:add_sof_edit" %}",
+                {
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    "id": id
+                },
+                function (data) {
+                    if (data.res == 1) {
+                        $("#id_number_b").html(data.id);
+                        $("#service_style_b").val(data.service_name);
+                        $("#hw_type_b").val(data.servie_type);
+                        $("#hw_des_b").val(data.HP_Description);
+                        $("#care_b").val(data.CarePack_Part);
+                        $("#gl_price_b").val(data.GL_Price_Unit);
+                        $("#option_b").val(data.promotion);
+                        $("#drop_inner_b").attr("style", "display:block;");
+                    }
+                    if (data.res == 0) {
+                        alert(data.errmsg);
+
+                    }
+                });
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#save_pro_b").click(function () {
+                $.post("{% url "show_list:add_sof_save" %}",
+                    {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        "id": $("#id_number_b").html(),
+                        "service_name": $("#service_style_b").val(),
+                        "servie_type": $("#hw_type_b").val(),
+                        "HP_Description": $("#hw_des_b").val(),
+                        "CarePack_Part": $("#care_b").val(),
+                        "GL_Price_Unit": $("#gl_price_b").val(),
+                        "promotion": $("#option_b").val(),
+                    },
+                    function (data) {
+                        if (data.res == 1) {
+                            $("#drop_inner_b").attr("style", "display:none;");
+                        } else
+                            alert(data.msg)
+                        window.location.reload()
+                    }
+                );
+            });
+        });
+    </script>
+    <script>
+        function del_pro_b(id) {
+            $.post("{% url "show_list:add_sof_del" %}",
+                {
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    "id": id
+                },
+                function (data) {
+                    if (data.res == 1) {
+                        alert("soft")
+                        window.location.reload()
+                    }
+                    if (data.res == 0)
+                        alert(data.errmsg)
+                });
+        }
+    </script>
+{% endblock content %}
+{% block Z_html %}{% endblock Z_html %}

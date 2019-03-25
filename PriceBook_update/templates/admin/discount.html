@@ -1,0 +1,31 @@
+{% extends "admin/admin.html" %}
+{% block title %}<title>折扣</title>{% endblock title %}
+{% block content %}
+    <div style="margin: auto;width: 800px;">
+        {% if discounts %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th><h4 style="text-align: center">会员等级</h4></th>
+                    <th><h4 style="text-align: center">折扣</h4></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for j in discounts %}
+                    <tr>
+                        <td style="text-align: center"><a href="">{{ j.vip }}</a></td>
+                        <td style="text-align: center"><a href="">{{ j.discount }}</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <a href="{% url "show_list:add_disconut" %}" class="btn btn-primary pull-right" type="button">添加会员等级</a>
+            </div>
+        {% else %}
+            <div style="margin: auto;width: 800px;">
+                <h1>{{ res }}</h1>
+                <a href="{% url "show_list:add_disconut" %}" class="btn btn-primary pull-right" type="button">添加会员等级</a>
+            </div>
+        {% endif %}
+{% endblock content %}

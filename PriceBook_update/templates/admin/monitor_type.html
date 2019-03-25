@@ -1,0 +1,27 @@
+{% extends "admin/admin.html" %}
+{% block title %}<title>admin</title>{% endblock title %}
+{% block content %}
+    <div style="margin: auto;width: 800px;">
+        <a class="btn btn-primary pull-right" type="button" href="{% url "show_update_list:add_monitor_type" %}">增加</a>
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th><h4 style="text-align: center">显示器分类</h4></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for monitor in monitors %}
+                <tr>
+                    <td><a href="{% url "show_update_list:show_monitor_pro" %}?id={{ monitor.id }}">{{ monitor.name }}</a></td>
+                    <td style="width: 10px">
+                        <a href="{% url "show_update_list:del_monitor_type" %}?id={{ monitor.id }}" class="btn btn-primary" type="button"><span
+                                class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}

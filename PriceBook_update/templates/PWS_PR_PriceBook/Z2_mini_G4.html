@@ -1,0 +1,90 @@
+{% extends "PWS_PR_PriceBook/base.html" %}
+{% block title %}<title>Z2 mini G4</title>{% endblock title %}
+{% block content %}
+    <div class="pull-right" style="color:brown;">
+        <p><strong>选择产品: <span id="auto-total-item">{{ qty }}</span> 项 </strong></p>
+        <p><strong>单价总计: <span id="auto-total-price">{{ count }}</span> CNY</strong></p>
+    </div>
+    <h3 class="text-center">{{ z2_mini_g4.name }}</h3>
+    <br><br>
+    <div class="table-responsive customer-table">
+        <table>
+            <thead>
+            <tr>
+                <th class="text-center">部件定货号(AV#)</th>
+                <th class="text-center">产品描述(Short Description)</th>
+                <th colspan="2" class="text-center">配置规则(Rules Description)</th>
+                <th class="text-center">End of Manufacturing (EM)</th>
+                <th class="text-center">CECP & EStar</th>
+                <th class="text-center">List Price with VAT</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in contacts %}
+                <tr class="info">
+                    <th colspan="2">{{ i.name }}</th>
+                    <th class="text-center choice-option" width="100">{{ i.choice }}</th>
+                    <th width="25%">{{ i.Rules }}</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                {% for j in i.product_set.all %}
+                    <tr>
+                        <td>{{ j.name }}</td>
+                        <td width="25%">{{ j.descrip }}</td>
+                        <td class="text-center">
+                            {% if i.belone_choice.less == 1 and i.belone_choice.more == 1 %}
+                                <input type="radio" name="{{ i.name }}" data-index="{{ i.choice }}"
+                                       data-index-number="{{ j.id }}" id="{{ j.name }}"
+                                       data-less="{{ i.belone_choice.less }}" data-more="{{ i.belone_choice.more }}">
+                            {% else %}
+                                <input type="checkbox" name="{{ i.name }}" data-index="{{ i.choice }}"
+                                       data-index-number="{{ j.id }}" id="{{ j.name }}"
+                                       data-less="{{ i.belone_choice.less }}" data-more="{{ i.belone_choice.more }}">
+                            {% endif %}
+
+                        </td>
+                        <td>{{ j.rules_descrip }}</td>
+                        <td class="text-center">{{ j.End_of_Manufacturing }}</td>
+                        <td>{{ j.CECP_EStar }}</td>
+                        <td class="text-center " id="{{ j.id }}">{{ j.List_Price }}</td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="pull-right" style="color:brown;">
+        <p><strong>选择产品: <span id="total-item">{{ qty }}</span> 项 </strong></p>
+        <p><strong>单价总计: <span id="total-price">{{ count }}</span> CNY</strong></p>
+        <p><strong>折扣价格: <span id="discount-price">xxx</span> CNY</strong></p>
+    </div>
+    <div class="clearfix"></div>
+    <div class="pagination" >
+    <span class="step-links">
+        {% if contacts.has_previous %}
+            <a href="?id={{ id }}&page={{ contacts.previous_page_number }}">上一页</a>
+        {% endif %}
+
+        <span class="current">
+             {{ contacts.number }} / {{ contacts.paginator.num_pages }}
+        </span>
+
+        {% if contacts.has_next %}
+            <a href="?id={{ id }}&page={{ contacts.next_page_number }}">下一页</a>
+        {% endif %}
+    </span>
+    </div>
+    <script type="text/javascript">
+        // var stepName = JSON.parse('{{ step_list1 | escapejs }}');
+
+        // for(var i = 0; i < stepName.length; i++) {
+        //     var dataLess = $(`input[name="${stepName[i]}"]`).eq(0).data("less")
+        //     var length = $(`input[name="${stepName[i]}"]:checked`).length
+        //     if (lenght < data.less) {
+        //         alert("请确认" + stepName[i] + "是否选择正确")
+        //     }
+        // }
+    </script>
+{% endblock content %}

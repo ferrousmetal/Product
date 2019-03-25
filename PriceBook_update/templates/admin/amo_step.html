@@ -1,0 +1,27 @@
+{% extends "admin/admin.html" %}
+{% block title %}<title></title>{% endblock title %}
+{% block content %}
+    <div style="margin: auto;width: 800px;">
+        <a class="btn btn-primary pull-right" type="button" href="{% url "show_update_list:add_amo_step" %}">增加</a>
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th><h4 style="text-align: center">AMO部件</h4></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in amo_steps %}
+                <tr>
+                    <td><a href="{% url "show_update_list:show_amo_pro" %}?id={{ i.id }}">{{ i.name }}</a></td>
+                    <td style="width: 10px">
+                        <a href="{% url "show_update_list:del_amo_step" %}?id={{ i.id }}" class="btn btn-primary" type="button"><span
+                                class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}

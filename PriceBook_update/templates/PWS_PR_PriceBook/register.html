@@ -1,0 +1,24 @@
+{% extends "PWS_PR_PriceBook/base.html" %}
+{% block title %}<title>注册</title>{% endblock title %}
+{% block Z_js %}{% endblock Z_js %}
+{% block content %}
+    <div style="width: 20%;margin: 80px auto;">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="exampleInputEmail1">邮箱</label>
+                <input type="email" class="form-control" name="InputEmail" placeholder="请输入邮箱">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">密码</label>
+                <input type="password" class="form-control" name="InputPassword" placeholder="请输入密码">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">确认密码</label>
+                <input type="password" class="form-control" name="ConfirmPassword" placeholder="请确认密码">
+            </div>
+            <button type="submit" class="btn btn-default">注册</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red;">{{ errmsg }}</span>
+        </form>
+    </div>
+{% endblock content %}
+{% block Z_html %}{% endblock Z_html %}

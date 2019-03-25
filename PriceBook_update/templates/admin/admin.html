@@ -1,0 +1,322 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block title %}<title>admin</title>{% endblock title %}
+    <script src="{% static "jquery-3.1.1.js" %}"></script>
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <link rel="stylesheet" href="{% static "mycss/custom.css" %}">
+{% block admin_js %}
+    <script>
+        $(document).ready(function () {
+            <!--显示并编辑单个产品信息start-->
+            function get_msg(id) {
+                $.post("{% url "show_list:edit" %}",
+                    {
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                        "id": id
+                    },
+                    function (data) {
+                        if (data.res == 1) {
+                            $("#id_number").html(data.id);
+                            $("#part_number").val(data.name);
+                            $("#product_des").val(data.descrip);
+                            $("#rules").val(data.rules_descrip);
+                            $("#end_of_man").val(data.End_of_Manufacturing);
+                            $("#cecp").val(data.CECP_EStar);
+                            $("#price").val(data.List_Price);
+                            $("#qty").val(data.Qty);
+                            $("#drop_inner").attr("style", "display:block;");
+                        }
+                        if (data.res == 0) {
+                            alert(data.errmsg);
+                        }
+                    });
+            }
+
+            <!--显示并编辑单个产品信息end-->
+
+            <!--保存单个产品信息start-->
+            $(".save-product-btn").on("click", function () {
+                var id = $(this).attr("id").split('-')[1];
+                get_msg(id)
+            });
+            $(".delete-product-btn").on("click", function () {
+                var id = $(this).attr("id").split('-')[1];
+                del_pro(id)
+            });
+            $("#save_pro").click(function () {
+                $.post("{% url "show_list:z_save" %}",
+                    {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        "id": $("#id_number").html(),
+                        "name": $("#part_number").val(),
+                        "descrip": $("#product_des").val(),
+                        "rules_descrip": $("#rules").val(),
+                        "End_of_Manufacturing": $("#end_of_man").val(),
+                        "CECP_EStar": $("#cecp").val(),
+                        "List_Price": $("#price").val(),
+                        "Qty": $("#qty").val()
+                    },
+                    function (data) {
+                        if (data.res == 1) {
+                            $("#drop_inner").attr("style", "display:none;");
+                            window.location.reload()
+                        } else
+                            alert(data.msg)
+                    }
+                );
+            });
+            <!--显示单个产品信息end-->
+
+            <!--删除单个产品start-->
+            function del_pro(id) {
+                $.post("{% url 'show_list:admin_z_product_del' %}",
+                    {
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                        "id": id
+                    },
+                    function (data) {
+                        if (data.res == 1) {
+                            window.location.reload();
+                            alert("删除成功")
+                        } else {
+                            alert(data.errmsg)
+                        }
+                    });
+            }
+        });
+        function del_z_category(id) {
+        var r = confirm("删除分类会删除分类的所有数据，是否删除");
+        if (r == true) {
+            $.post("{% url "show_list:del_z_category" %}",
+                {
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    "id": id
+                },
+                function (data) {
+                    if (data.res == 1) {
+                        alert("删除成功")
+                        window.location.reload()
+                    } else {
+                        alert("删除失败")
+                    }
+                }
+            );
+        } else {
+            alert("操作已取消");
+        }
+    }
+
+    function del_other_category(id) {
+        var r = confirm("删除分类会删除分类的所有数据，是否删除");
+        if (r == true) {
+            $.post("{% url "show_list:del_other_category" %}",
+                {
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    "id": id
+                },
+                function (data) {
+                    if (data.res == 1) {
+                        alert("删除成功")
+                        window.location.reload()
+                    } else {
+                        alert("删除失败")
+                    }
+                }
+            );
+        } else {
+            alert("操作已取消");
+        }
+    }
+    </script>
+{% endblock admin_js %}
+</head>
+<body>
+<nav class="navbar navbar-default" style="border-radius: 0;margin-bottom: 10px;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url "show_list:index" %}">首页</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                {% if request.session.super_user %}
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            {{ request.session.session_email }}
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url "show_list:users" %}">用户信息</a></li>
+                            <li><a href="{% url "show_list:disconut" %}">会员优惠</a></li>
+                            <li><a href="">添加管理员</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{% url "show_list:logout" %}"><span
+                            class="glyphicon glyphicon-log-out"></span>退出</a></li>
+                {% else %}
+                    <li><a href="{% url "show_update_list:register" %}"><span
+                            class="glyphicon glyphicon-user"></span> 注册</a></li>
+                    <li><a href="{% url "show_update_list:login" %}"><span
+                            class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+{% block content %}
+    <div style="margin: auto;width: 800px;">
+        <table class="table">
+            <thead>
+            <tr>
+                <th><h4 style="text-align: center">产品分类</h4></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in pro_categorys %}
+                <tr>
+                    <td><a href="{% url "show_list:show_assemble_step" %}?id={{ i.id }}">{{ i.name }}</a></td>
+                    <td style="width: 10px">
+                        <button onclick="del_z_category('{{ i.id }}')" class="btn btn-primary" type="button"><span
+                                class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="2">
+                    <a class="btn btn-primary" type="button" href="{% url "show_list:add_z_category" %}">增加</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="margin: auto;width: 800px;">
+        <table class="table">
+            <thead>
+            <tr>
+                <th><h4 style="text-align: center">服务分类</h4></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for j in other_categorys %}
+                <tr>
+                    <td>
+                        <a href="{% url "show_list:admin_monitor_category" %}?id={{ j.id }}&name={{ j.name }}">{{ j.name }}</a>
+                    </td>
+                    <td style="width: 10px">
+                        <button onclick="del_other_category('{{ j.id }}')" class="btn btn-primary"
+                                type="button"><span
+                                class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div style="margin: auto;width: 800px;">
+        <table class="table">
+            <thead>
+            <tr>
+                <th><h4>部件限制选项</h4></th>
+                <th><h4>最少选项</h4></th>
+                <th><h4>最多选项</h4></th>
+                <th><h4 style="text-align: center">删除</h4></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for j in rulechoice %}
+                <tr>
+                    <td><a href="">{{ j.choice }}</a></td>
+                    <td>{{ j.less }}</td>
+                    <td>{{ j.more }}</td>
+                    <td style="width: 10px">
+                        <a href="{% url "show_update_list:del_limit" %}?id={{ j.id }}" class="btn btn-primary" type="button"><span
+                                class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="4">
+                    <a class="btn btn-primary" type="button" href="{% url 'show_update_list:add_limit' %}">增加</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
+<div id="drop_inner" style="display:none" class="modal" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="id_number"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">部件定货号</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="part_number">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">产品描述</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="product_des">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">配置规则</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="rules">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">End of Manufacturing</label>
+                                <div class="col-sm-10">
+                                    <input type="date" class="form-control" id="end_of_man">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">CECP & EStar</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="cecp">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">List Price with VAT</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="price">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Qty</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="qty">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('#drop_inner').attr('style','display:none');
+                            ">关闭
+                                </button>
+                                <button type="button" class="btn btn-primary" id="save_pro">保存</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
