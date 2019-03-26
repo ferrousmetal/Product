@@ -1066,8 +1066,7 @@ class Test(View):
             step_list.append(i.name)
         step_list1 = json.dumps(step_list)
         html = render_to_string('PWS_PR_PriceBook/Z2_mini_G4.html', locals())
-        return JsonResponse(
-            {"res": 1, "html": html, "cateName": z2_mini_g4.name, "step_list1": step_list1, "rules_id": rules_id})
+        return JsonResponse({"res": 1, "html": html, "cateName": z2_mini_g4.name, "step_list1": step_list1, "rules_id": rules_id})
 
 
 class Test2(View):
@@ -1283,11 +1282,11 @@ class PDF(View):
             exist_file = os.path.exists("%s.xls" % (label.name))
             if exist_file:
                 os.remove(r"%s.xls" % (label.name))
-            ws.save("%s.xls" % (label.name))
+            ws.save("%s.xls"%(label.name))
             sio = BytesIO()
             ws.save(sio)
             sio.seek(0)
             response = HttpResponse(sio.getvalue(), content_type='application/vnd.ms-excel')
-            response['Content-Disposition'] = 'attachment; filename=%s.xls' % (label.name)
+            response['Content-Disposition'] = 'attachment; filename=%s.xls'%(label.name)
             response.write(sio.getvalue())
             return response

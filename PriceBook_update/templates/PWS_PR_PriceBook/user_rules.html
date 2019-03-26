@@ -189,6 +189,7 @@
             }
             for (var j = 0; j < checkeds.length; j++) {
                 array_checkeds.push($(checkeds[j]).attr("data-index-number"))
+                var itemPrice = $("#" + $(checkeds[j]).attr("data-index-number")).text();
             }
             $.post("{% url "show_list:save_user_rules" %}",
                 {
