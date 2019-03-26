@@ -6,6 +6,7 @@ from django.urls import reverse
 import re, json
 from django.http import JsonResponse, HttpResponse
 from .utils import Page,Page1
+import pdfkit
 
 
 # Create your views here.
@@ -1072,9 +1073,9 @@ class Test2(View):
         id = request.POST.get("cate_id")
         z2_mini_g4 = Z_Category.objects.get(id=int(id))
         label_name = z2_mini_g4.name
-        step = z2_mini_g4.assemble_steps_set.all()
+        contacts = z2_mini_g4.assemble_steps_set.all()
         step_list = []
-        for i in step:
+        for i in contacts:
             step_list.append(i.name)
         step_list1 = json.dumps(step_list)
         html = render_to_string('PWS_PR_PriceBook/Z2_mini_G4.html', locals())
