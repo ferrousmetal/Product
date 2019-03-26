@@ -1,8 +1,8 @@
 import os
 from io import BytesIO
-
 import xlwt
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import render_to_string
 from django.views.generic import View
 from show_update_list.models import *
 from show_update_list.utils import get_hash, quick_sort
@@ -10,9 +10,8 @@ from django.urls import reverse
 import re, json
 from django.http import JsonResponse, HttpResponse
 from .utils import Page, Page1
+import uuid
 
-
-# Create your views here.
 
 class Index(View):
     """首页展示"""
@@ -888,9 +887,6 @@ class Admin_PPS_CarePack_List_Price(View):
         return render(request, "admin/edit_增值服务.html")
 
 
-import uuid
-
-
 class saveUserRules(View):
     """编辑保存用户配置规则"""
 
@@ -1043,9 +1039,6 @@ class User_disccount(View):
                 return JsonResponse({"res": 1, "totalPrice": count})
         else:
             return JsonResponse({"res": 1, "totalPrice": count})
-
-
-from django.template.loader import render_to_string
 
 
 class Test(View):
@@ -1293,3 +1286,4 @@ class PDF(View):
             response['Content-Disposition'] = 'attachment; filename=%s.xls'%(label.name)
             response.write(sio.getvalue())
             return response
+
