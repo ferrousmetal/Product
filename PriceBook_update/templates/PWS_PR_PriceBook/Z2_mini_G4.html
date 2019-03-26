@@ -59,11 +59,11 @@
     </div>
 
     <div class="clearfix"></div>
-    <div class="pagination" >
+    <div class="pagination">
     <span class="step-links">
-        {% if contacts.has_previous %}
-            <a href="?id={{ id }}&page={{ contacts.previous_page_number }}" class="previous">上一页</a>
-        {% endif %}
+{#        {% if contacts.has_previous %}#}
+{#            <a href="?id={{ id }}&page={{ contacts.previous_page_number }}" class="previous">上一页</a>#}
+{#        {% endif %}#}
 
         <span class="current">
              {{ contacts.number }} / {{ contacts.paginator.num_pages }}
@@ -80,7 +80,15 @@
         <p><strong>单价总计: <span id="total-price">{{ count }}</span> CNY</strong></p>
         <p><strong>折扣价格: <span id="discount-price">xxx</span> CNY</strong></p>
     </div>
-
+    {% if contacts.has_next %}
+    {% else %}
+        <button type="button" class="btn btn-primary add-parts-settings pull-left" data-toggle="modal"
+                data-target="#edit-settings">保存配置
+        </button>
+        <a type="button" class="btn btn-primary add-parts-settings pull-left" data-toggle="modal"
+                data-target="#edit-settings">导出ExCel
+        </a>
+    {% endif %}
     <script type="text/javascript">
         // var stepName = JSON.parse('{{ step_list1 | escapejs }}');
 
