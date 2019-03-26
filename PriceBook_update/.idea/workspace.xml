@@ -3,8 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="1dc4d3f1-244b-48b5-8243-6ad3d20a6314" name="Default Changelist" comment="new">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/show_update_list/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/show_update_list/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z2_G4_TWR.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z2_G4_TWR.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PriceBook_update/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/PriceBook_update/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/PWS_PR_PriceBook/user_rules.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/PWS_PR_PriceBook/user_rules.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/add_amo_step.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/add_amo_step.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/add_discount.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/add_discount.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/add_monitor_type.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/add_monitor_type.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/add_other_category.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/add_other_category.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/add_z_category.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/add_z_category.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/admin_edit_z.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/admin_edit_z.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/limit.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/limit.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,11 +25,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/show_update_list/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="1324" column="50" lean-forward="true" selection-start-line="1324" selection-start-column="50" selection-end-line="1324" selection-end-column="50" />
+            <state relative-caret-position="27951">
+              <caret line="1331" column="49" lean-forward="true" selection-start-line="1331" selection-start-column="49" selection-end-line="1331" selection-end-column="49" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -38,11 +46,17 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/user_rules.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="673">
-              <caret line="60" column="17" selection-start-line="59" selection-start-column="8" selection-end-line="62" selection-end-column="14" />
+            <state relative-caret-position="-300">
+              <caret line="21" column="20" lean-forward="true" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
+              <folding>
+                <element signature="n#style#0;n#h3#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="e#1908#1915#1#HTML" expanded="true" />
+                <element signature="e#2517#2524#1#HTML" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -81,8 +95,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PriceBook_update/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="680">
-              <caret line="127" column="8" selection-start-line="127" selection-end-line="127" selection-end-column="16" />
+            <state relative-caret-position="-1277">
+              <caret line="39" column="23" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -170,17 +184,17 @@
         <option value="$PROJECT_DIR$/templates/PWS_PR_PriceBook/show_category.html" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/wkhtmltopdf/__init__.py" />
-        <option value="$PROJECT_DIR$/PriceBook_update/settings.py" />
         <option value="$PROJECT_DIR$/show_update_list/urls.py" />
-        <option value="$PROJECT_DIR$/templates/PWS_PR_PriceBook/user_rules.html" />
         <option value="$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z2_G4_TWR.html" />
         <option value="$PROJECT_DIR$/show_update_list/views.py" />
+        <option value="$PROJECT_DIR$/PriceBook_update/settings.py" />
+        <option value="$PROJECT_DIR$/templates/PWS_PR_PriceBook/user_rules.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="868" />
-    <option name="y" value="120" />
+    <option name="x" value="638" />
+    <option name="y" value="57" />
     <option name="width" value="1765" />
     <option name="height" value="1273" />
   </component>
@@ -329,7 +343,7 @@
       <workItem from="1553076470582" duration="4751000" />
       <workItem from="1553502334992" duration="3131000" />
       <workItem from="1553565850333" duration="10679000" />
-      <workItem from="1553578600441" duration="10847000" />
+      <workItem from="1553578600441" duration="11693000" />
     </task>
     <task id="LOCAL-00001" summary="fsdfsd">
       <created>1546204838137</created>
@@ -401,17 +415,24 @@
       <option name="project" value="LOCAL" />
       <updated>1553566521326</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="new">
+      <created>1553595316946</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1553595316946</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="200585000" />
+    <option name="totallyTimeSpent" value="201431000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="824" y="23" width="1765" height="1273" extended-state="0" />
+    <frame x="638" y="57" width="1765" height="1273" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2591944" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2591944" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -425,7 +446,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.24010327" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.3313253" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -747,13 +768,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PriceBook_update/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="127" column="8" selection-start-line="127" selection-end-line="127" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1899">
@@ -779,20 +793,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/user_rules.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="673">
-          <caret line="60" column="17" selection-start-line="59" selection-start-column="8" selection-end-line="62" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z2_G4_TWR.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="41" column="19" selection-start-line="37" selection-start-column="12" selection-end-line="47" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/show_update_list/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="174">
@@ -803,12 +803,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z2_G4_TWR.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="446">
+          <caret line="41" column="19" selection-start-line="37" selection-start-column="12" selection-end-line="47" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/show_update_list/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="1324" column="50" lean-forward="true" selection-start-line="1324" selection-start-column="50" selection-end-line="1324" selection-end-column="50" />
+        <state relative-caret-position="27951">
+          <caret line="1331" column="49" lean-forward="true" selection-start-line="1331" selection-start-column="49" selection-end-line="1331" selection-end-column="49" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PriceBook_update/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1277">
+          <caret line="39" column="23" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/user_rules.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-300">
+          <caret line="21" column="20" lean-forward="true" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
+          <folding>
+            <element signature="n#style#0;n#h3#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="e#1908#1915#1#HTML" expanded="true" />
+            <element signature="e#2517#2524#1#HTML" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

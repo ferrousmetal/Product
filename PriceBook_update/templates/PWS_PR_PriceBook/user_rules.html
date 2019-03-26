@@ -1,16 +1,16 @@
 {% extends "PWS_PR_PriceBook/base.html" %}
 {% block title %}<title>我的配置详细</title>{% endblock title %}
 {% block content %}
-    <div style="margin: 0 auto;width: 1200px;">
-        <h3 style="text-align: center;">[{{ label.name }}]详细配置</h3>
-    </div>
-    <div style="margin: auto;width: 1200px;" class="table-responsive customer-table">
-        <button type="button" class="btn btn-primary add-parts-settings pull-right" data-toggle="modal"
-                data-target="#edit-settings">编辑
-        </button>
-        <br>
-        <div class="table-responsive">
-            <table>
+    <div class="col-md-8 col-md-offset-2 col-xs-12">
+    <h3 style="text-align: center;">我的详细配置</h3>
+
+    <div class="table-responsive customer-table">
+    <button type="button" class="btn btn-primary add-parts-settings pull-right" data-toggle="modal"
+            data-target="#edit-settings">编辑
+    </button>
+    <br>
+    <div class="table-responsive">
+        <table>
             <thead>
             <tr class="table-caption">
                 <th width="300">所属部件</th>
@@ -33,36 +33,45 @@
                 </tr>
             {% endfor %}
             </tbody>
-            </table>
-        </div>
-
-        <!-- <a href="" class="btn btn-primary add-parts-settings" type="button">增加</a> -->
-        <div class="modal fade" id="edit-settings" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">编辑配置</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="category-page">
+        </table>
+    </div>
+    <a class="btn btn-primary pull-left" href="{% url "show_list:pdf" %}?id={{ id }}" type="button">下载Excel</a>
+    <div class="modal fade" id="edit-settings" role="dialog">
+    <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">编辑配置</h4>
+    </div>
+    <div class="modal-body">
+        <div class="category-page">
+            <!-- <a href="" class="btn btn-primary add-parts-settings" type="button">增加</a> -->
+            <div class="modal fade" id="edit-settings" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">编辑配置</h4>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary check-isvalid">检查选项是否合格</button>
-                        <button type="button" class="btn btn-primary rule-button" id="rule_button">保存</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <div class="modal-body">
+                            <div class="category-page">
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary check-isvalid">检查选项是否合格</button>
+                            <button type="button" class="btn btn-primary rule-button" id="rule_button">保存</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="pull-right" style="color:brown;">
+                <p><strong>选择产品: <span id="total-item">{{ qty }}</span> 项 </strong></p>
+                <p><strong>单价总计: <span id="total-price">{{ count }}</span> CNY</strong></p>
+            </div>
         </div>
-        <div class="pull-right" style="color:brown;">
-            <p><strong>选择产品: <span id="total-item">{{ qty }}</span> 项 </strong></p>
-            <p><strong>单价总计: <span id="total-price">{{ count }}</span> CNY</strong></p>
-        </div>
-        <a class="btn btn-primary pull-left" href="{% url "show_list:pdf" %}?id={{ id }}" type="button">下载Excel</a>
     </div>
-
     <script>
         var categoryId = {{ z_category }};
         var pro_array = JSON.parse('{{ pro_array | escapejs }}');

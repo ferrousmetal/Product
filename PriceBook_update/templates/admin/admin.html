@@ -173,11 +173,13 @@
     </div>
 </nav>
 {% block content %}
-    <div style="margin: auto;width: 800px;">
+<div class="col-md-8 col-md-offset-2 col-xs-12">
+    <div class="table-responsive">
         <table class="table">
             <thead>
             <tr>
-                <th><h4 style="text-align: center">产品分类</h4></th>
+                <th><h5 style="text-align: center">产品分类</h5></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -199,11 +201,12 @@
             </tbody>
         </table>
     </div>
-    <div style="margin: auto;width: 800px;">
+    <div class="table-responsive">
         <table class="table">
             <thead>
             <tr>
-                <th><h4 style="text-align: center">服务分类</h4></th>
+                <th><h5 style="text-align: center">服务分类</h5></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -224,14 +227,14 @@
             </tbody>
         </table>
     </div>
-    <div style="margin: auto;width: 800px;">
+    <div class="table-responsive">
         <table class="table">
             <thead>
             <tr>
-                <th><h4>部件限制选项</h4></th>
-                <th><h4>最少选项</h4></th>
-                <th><h4>最多选项</h4></th>
-                <th><h4 style="text-align: center">删除</h4></th>
+                <th><h5>部件限制选项</h5></th>
+                <th><h5>最少选项</h5></th>
+                <th><h5>最多选项</h5></th>
+                <th><h5 style="text-align: center">删除</h5></th>
             </tr>
             </thead>
             <tbody>
@@ -255,6 +258,7 @@
             </tbody>
         </table>
     </div>
+</div>
 {% endblock content %}
 <div id="drop_inner" style="display:none" class="modal" tabindex="-1" role="dialog"
              aria-labelledby="myModalLabel">
