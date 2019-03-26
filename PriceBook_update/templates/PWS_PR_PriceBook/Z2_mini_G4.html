@@ -76,19 +76,22 @@
     </div>
 
     <div class="pull-right display-total-price" style="color:brown;">
+      {% if contacts.has_next %}
+      {% else %}
+          <div class="pull-right" style="margin-top: -40px">
+            <button type="button" class="btn btn-default btn-sm add-parts-settings pull-left" data-toggle="modal"
+                    data-target="#edit-settings">保存配置
+            </button>
+            <a type="button" class="btn btn-default btn-sm add-parts-settings pull-left" data-toggle="modal"
+                    data-target="#edit-settings">导出ExCel
+            </a>
+          </div>
+      {% endif %}
         <p><strong>选择产品: <span id="total-item">{{ qty }}</span> 项 </strong></p>
         <p><strong>单价总计: <span id="total-price">{{ count }}</span> CNY</strong></p>
         <p><strong>折扣价格: <span id="discount-price">xxx</span> CNY</strong></p>
     </div>
-    {% if contacts.has_next %}
-    {% else %}
-        <button type="button" class="btn btn-primary add-parts-settings pull-left" data-toggle="modal"
-                data-target="#edit-settings">保存配置
-        </button>
-        <a type="button" class="btn btn-primary add-parts-settings pull-left" data-toggle="modal"
-                data-target="#edit-settings">导出ExCel
-        </a>
-    {% endif %}
+
     <script type="text/javascript">
         // var stepName = JSON.parse('{{ step_list1 | escapejs }}');
 
@@ -101,8 +104,6 @@
         // }
 
         function setStorage () {
-          var pageVal = $(".next").attr("href")
-          var page = pageVal.split("&")[1].split("=")[1]
 
           var radios = $('input[type="radio"]:checked');
           var checkeds = $('input[type="checkbox"]:checked');
@@ -149,6 +150,21 @@
 
         $(".next").on("click", function() {
           setStorage()
+        })
+
+        $(".add-parts-settings").on("click", function () {
+          setStorage()
+
+          var localData = JSON.parse(localStorage.getItem("productId"))
+          var localPrice = JSON.parse(localStorage.getItem("productPrice"))
+
+          if (localData !== null || localPrice !== null) {
+            localStorage.clear();
+            // 后台发送AJAX, localdata存储所有的productid, localPrice存储的是所有选中product的价钱
+            console.log(localData)
+          } else {
+            alert("选项为空 ")
+          }
         })
     </script>
 {% endblock content %}
