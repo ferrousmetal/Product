@@ -11,7 +11,7 @@
         <table>
             <thead>
             <tr>
-                <th class="text-center">部件定货号</th>
+                <th class="text-center" width="20%">部件定货号</th>
                 <th class="text-center">产品描述</th>
                 <th class="text-center">配置规则</th>
                 <!-- <th class="text-center">End of Manufacturing (EM)</th>
@@ -23,11 +23,12 @@
             {% for i in contacts %}
                 <tr class="info">
                     <th>{{ i.name }}</th>
+                    <th></th>
                     <th class="text-center choice-option" width="100">{{ i.choice }}</th>
                     <th width="20%">{{ i.Rules }}</th>
                     <!-- <th></th>
-                    <th></th> -->
                     <th></th>
+                    <th></th> -->
                 </tr>
                 {% for j in i.product_set.all %}
                     <tr>
