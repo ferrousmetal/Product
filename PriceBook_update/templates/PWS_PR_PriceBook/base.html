@@ -30,6 +30,8 @@
               $("#total-item").text(localData.length)
               $("#total-price").text(totalPrice)
 
+              calculateDiscountPrice(totalPrice)
+
                 function calculateCheckedPrice() {
                     sum = 0;
                     item = 0;
@@ -52,7 +54,7 @@
                     $("#total-item").text(item + localData.length);
                     $("#auto-total-price").text(sum);
                     $("#auto-total-item").text(item);
-                    return sum;
+                    return sum + localPrice.reduce(getSum, 0);
                 }
 
                 function calculateDiscountPrice(totalPrice) {
