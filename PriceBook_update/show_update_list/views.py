@@ -1266,7 +1266,7 @@ class PDF(View):
             id=int(rule.data_index_number))} for rule in rules]
         if pro_list:
             ws = xlwt.Workbook(encoding='utf8')
-            w = ws.add_sheet(u"数据报表第一页")
+            w = ws.add_sheet(u"%s"%(label.name))
             w.write(0, 0, u"所属部件")
             w.write(0, 1, u"部件订货号")
             w.write(0, 2, u"产品描述")
@@ -1282,14 +1282,14 @@ class PDF(View):
                     w.write(excel_row, 3, k.End_of_Manufacturing)
                     w.write(excel_row, 4, k.List_Price)
                     excel_row += 1
-            exist_file = os.path.exists("test.xls")
+            exist_file = os.path.exists("%s.xls"%(label.name))
             if exist_file:
-                os.remove(r"test.xls")
-            ws.save("test.xls")
+                os.remove(r"%s.xls"%(label.name))
+            ws.save("%s.xls"%(label.name))
             sio = BytesIO()
             ws.save(sio)
             sio.seek(0)
             response = HttpResponse(sio.getvalue(), content_type='application/vnd.ms-excel')
-            response['Content-Disposition'] = 'attachment; filename=test.xls'
+            response['Content-Disposition'] = 'attachment; filename=%s.xls'%(label.name)
             response.write(sio.getvalue())
             return response
