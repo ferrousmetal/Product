@@ -1,5 +1,12 @@
+import os
+from io import BytesIO
+
+import xlwt
+from bs4 import BeautifulSoup
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
+from openpyxl import Workbook
+
 from show_update_list.models import *
 from show_update_list.utils import get_hash, quick_sort
 from django.urls import reverse
@@ -1238,11 +1245,51 @@ class DelAmoStep(View):
         return redirect(reverse("show_list:admin_auth"))
 
 
-
 from django.conf import settings
 import weasyprint
+
+
+# def PDF(request):
+#     if request.method == 'GET':
+#         id = request.GET.get("id")
+#         label = rulesName.objects.get(id=int(id))
+#         rules = label.userassemble_set.all()
+#         qty = label.pro_number
+#         count = label.total_count
+#         pro = []
+#         for i in rules:
+#             pro.append(Product.objects.get(id=int(i.data_index_number)).name)
+#         pro_array = json.dumps(pro)
+#         for i in rules:
+#             z_category = Z_Category.objects.get(id=Assemble_Steps.objects.get(
+#                 id=Product.objects.get(id=int(i.data_index_number)).assemble_product_id).assemble_category_id).id
+#             break
+#         pro_list = [{Assemble_Steps.objects.get(id=Product.objects.get(id=int(
+#             rule.data_index_number)).assemble_product_id).name: Product.objects.get(
+#             id=int(rule.data_index_number))} for rule in rules]
+#         order = get_object_or_404(rulesName, id=id)
+#         html = render_to_string("PWS_PR_PriceBook/Z2_G4_TWR.html", locals())
+#         soup = BeautifulSoup(html)
+#         result = []
+#         for line in soup.findAll('td'):
+#             result.append(line.string)
+#         workbook = xlwt.Workbook(encoding='utf8')
+#         worksheet = workbook.add_sheet('My Worksheet')
+#
+#         for tag in range(0, 8):
+#             worksheet.write(0, tag, label=result[tag])
+#         # response = HttpResponse(content_type='application/pdf')
+#         # response['Content-Disposition'] = 'filename="order_{}.pdf"'.format(order.id)
+#         # weasyprint.HTML(string=html).write_pdf(response)
+#         response = HttpResponse(content_type='application/msexcel')
+#         response['Content-Disposition'] = 'attachment; filename=example.xls'
+#         workbook.save(response)
+#         return response
 def PDF(request):
-    if request.method =='GET':
+    """
+        导出excel表格
+        """
+    if request.method == 'GET':
         id = request.GET.get("id")
         label = rulesName.objects.get(id=int(id))
         rules = label.userassemble_set.all()
@@ -1259,11 +1306,42 @@ def PDF(request):
         pro_list = [{Assemble_Steps.objects.get(id=Product.objects.get(id=int(
             rule.data_index_number)).assemble_product_id).name: Product.objects.get(
             id=int(rule.data_index_number))} for rule in rules]
-        order = get_object_or_404(rulesName, id=id)
-        html = render_to_string("PWS_PR_PriceBook/Z2_G4_TWR.html", locals())
-        response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = 'filename="order_{}.pdf"'.format(order.id)
-        weasyprint.HTML(string=html).write_pdf(response,stylesheets=[weasyprint.CSS('/Users/akun/Desktop/Product/PriceBook_update/static/css/bootstrap.min.css')])
-        return response
-
-
+        # list_obj = pro_list
+        # print(list_obj)
+        #
+        # for pros in pro_list:
+        #     for stem, pro in pros.items
+        # {{stem}}
+        # {{pro.name}}
+        # {{pro.descrip}}
+        # {{pro.End_of_Manufacturing}}
+        # {{pro.List_Price}}
+        if pro_list:
+            ws = xlwt.Workbook(encoding='utf8')
+            w = ws.add_sheet(u"数据报表第一页")
+            w.write(0, 0, u"所属部件")
+            w.write(0, 1, u"部件订货号")
+            w.write(0, 2, u"产品描述")
+            w.write(0, 3, u"End of Manufacturing")
+            w.write(0, 4, u"List Price")
+            excel_row = 1
+            for pro in pro_list:
+                for j,k in pro.items():
+                    print(j,k)
+                    w.write(excel_row, 0, j)
+                    w.write(excel_row, 1, k.name)
+                    w.write(excel_row, 2, k.descrip)
+                    w.write(excel_row, 3, k.End_of_Manufacturing)
+                    w.write(excel_row, 4, k.List_Price)
+                    excel_row += 1
+            exist_file = os.path.exists("test.xls")
+            if exist_file:
+                os.remove(r"test.xls")
+            ws.save("test.xls")
+            sio = BytesIO()
+            ws.save(sio)
+            sio.seek(0)
+            response = HttpResponse(sio.getvalue(), content_type='application/vnd.ms-excel')
+            response['Content-Disposition'] = 'attachment; filename=test.xls'
+            response.write(sio.getvalue())
+            return response
