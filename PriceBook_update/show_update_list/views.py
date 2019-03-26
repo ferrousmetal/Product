@@ -2,10 +2,10 @@ import os
 from io import BytesIO
 
 import xlwt
-from bs4 import BeautifulSoup
+# from bs4 import BeautifulSoup
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
-from openpyxl import Workbook
+# from openpyxl import Workbook
 
 from show_update_list.models import *
 from show_update_list.utils import get_hash, quick_sort
@@ -1248,43 +1248,6 @@ class DelAmoStep(View):
 from django.conf import settings
 import weasyprint
 
-
-# def PDF(request):
-#     if request.method == 'GET':
-#         id = request.GET.get("id")
-#         label = rulesName.objects.get(id=int(id))
-#         rules = label.userassemble_set.all()
-#         qty = label.pro_number
-#         count = label.total_count
-#         pro = []
-#         for i in rules:
-#             pro.append(Product.objects.get(id=int(i.data_index_number)).name)
-#         pro_array = json.dumps(pro)
-#         for i in rules:
-#             z_category = Z_Category.objects.get(id=Assemble_Steps.objects.get(
-#                 id=Product.objects.get(id=int(i.data_index_number)).assemble_product_id).assemble_category_id).id
-#             break
-#         pro_list = [{Assemble_Steps.objects.get(id=Product.objects.get(id=int(
-#             rule.data_index_number)).assemble_product_id).name: Product.objects.get(
-#             id=int(rule.data_index_number))} for rule in rules]
-#         order = get_object_or_404(rulesName, id=id)
-#         html = render_to_string("PWS_PR_PriceBook/Z2_G4_TWR.html", locals())
-#         soup = BeautifulSoup(html)
-#         result = []
-#         for line in soup.findAll('td'):
-#             result.append(line.string)
-#         workbook = xlwt.Workbook(encoding='utf8')
-#         worksheet = workbook.add_sheet('My Worksheet')
-#
-#         for tag in range(0, 8):
-#             worksheet.write(0, tag, label=result[tag])
-#         # response = HttpResponse(content_type='application/pdf')
-#         # response['Content-Disposition'] = 'filename="order_{}.pdf"'.format(order.id)
-#         # weasyprint.HTML(string=html).write_pdf(response)
-#         response = HttpResponse(content_type='application/msexcel')
-#         response['Content-Disposition'] = 'attachment; filename=example.xls'
-#         workbook.save(response)
-#         return response
 def PDF(request):
     """
         导出excel表格
