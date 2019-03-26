@@ -155,6 +155,7 @@
                             {{ request.session.session_email }}
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
+                            <li><a href="{% url "show_list:admin_auth" %}">后台首页</a></li>
                             <li><a href="{% url "show_list:users" %}">用户信息</a></li>
                             <li><a href="{% url "show_list:disconut" %}">会员优惠</a></li>
                             <li><a href="">添加管理员</a></li>

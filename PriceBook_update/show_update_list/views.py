@@ -1,7 +1,7 @@
 import os
 from io import BytesIO
 import xlwt
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.views.generic import View
 from show_update_list.models import *
@@ -40,7 +40,6 @@ class Z2_mini_G4(View):
         page = request.GET.get('page')
         contacts = Page(step, page)
         return render(request, "PWS_PR_PriceBook/Z2_mini_G4.html", locals())
-
 
 class Monitor(View):
     """Monitor"""
@@ -220,10 +219,18 @@ class Admin(View):
     """后台管理首页"""
 
     def get(self, request):
-        pro_categorys = Z_Category.objects.all()
-        other_categorys = Other_category.objects.all()
-        rulechoice = RuleChoice.objects.all()
-        return render(request, "admin/admin.html", locals())
+        if request.session['session_email']:
+            email=request.session['session_email']
+            user=Huipu_User.objects.get(email=email)
+            if user.super_user:
+                pro_categorys = Z_Category.objects.all()
+                other_categorys = Other_category.objects.all()
+                rulechoice = RuleChoice.objects.all()
+                return render(request, "admin/admin.html", locals())
+            else:
+                return HttpResponse('<div>没有权限</div>')
+        else:
+            return HttpResponseRedirect("/user/login")
 
 
 class Add_Z_category(View):
@@ -1053,9 +1060,9 @@ class Test(View):
             count = count + (Product.objects.get(id=int(i.data_index_number)).List_Price)
         id = request.POST.get("id")
         z2_mini_g4 = Z_Category.objects.get(id=int(id))
-        step = z2_mini_g4.assemble_steps_set.all()
+        contacts = z2_mini_g4.assemble_steps_set.all()
         step_list = []
-        for i in step:
+        for i in contacts:
             step_list.append(i.name)
         step_list1 = json.dumps(step_list)
         html = render_to_string('PWS_PR_PriceBook/Z2_mini_G4.html', locals())
@@ -1259,31 +1266,28 @@ class PDF(View):
             id=int(rule.data_index_number))} for rule in rules]
         if pro_list:
             ws = xlwt.Workbook(encoding='utf8')
-            w = ws.add_sheet(u"%s"%(label.name))
-            w.write(0, 0, u"所属部件")
-            w.write(0, 1, u"部件订货号")
-            w.write(0, 2, u"产品描述")
-            w.write(0, 3, u"End of Manufacturing")
-            w.write(0, 4, u"List Price")
+            w = ws.add_sheet(u"%s" % (label.name))
+            w.write(0, 0, u"部件订货号")
+            w.write(0, 1, u"产品描述")
+            w.write(0, 2, u"End of Manufacturing")
+            w.write(0, 3, u"List Price")
             excel_row = 1
             for pro in pro_list:
                 for j, k in pro.items():
                     print(j, k)
-                    w.write(excel_row, 0, j)
-                    w.write(excel_row, 1, k.name)
-                    w.write(excel_row, 2, k.descrip)
-                    w.write(excel_row, 3, k.End_of_Manufacturing)
-                    w.write(excel_row, 4, k.List_Price)
+                    w.write(excel_row, 0, k.name)
+                    w.write(excel_row, 1, k.descrip)
+                    w.write(excel_row, 2, k.End_of_Manufacturing)
+                    w.write(excel_row, 3, k.List_Price)
                     excel_row += 1
-            exist_file = os.path.exists("%s.xls"%(label.name))
+            exist_file = os.path.exists("%s.xls" % (label.name))
             if exist_file:
-                os.remove(r"%s.xls"%(label.name))
-            ws.save("%s.xls"%(label.name))
+                os.remove(r"%s.xls" % (label.name))
+            ws.save("%s.xls" % (label.name))
             sio = BytesIO()
             ws.save(sio)
             sio.seek(0)
             response = HttpResponse(sio.getvalue(), content_type='application/vnd.ms-excel')
-            response['Content-Disposition'] = 'attachment; filename=%s.xls'%(label.name)
+            response['Content-Disposition'] = 'attachment; filename=%s.xls' % (label.name)
             response.write(sio.getvalue())
             return response
-
