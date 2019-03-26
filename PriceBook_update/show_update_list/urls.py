@@ -81,5 +81,6 @@ urlpatterns=[
     url(r'^show_amo_pro/',ShowAmoPro.as_view(),name='show_amo_pro'),
     url(r'^add_amo_step/',AddAmoStep.as_view(),name='add_amo_step'),
     url(r'^del_amo_step/',DelAmoStep.as_view(),name='del_amo_step'),
+    url(r'^pdf/',PDF,name='pdf'),
     url(r'',Index.as_view(),name='index'),
     ]

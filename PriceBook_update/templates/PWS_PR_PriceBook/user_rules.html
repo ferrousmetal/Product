@@ -62,6 +62,7 @@
                 <p><strong>单价总计: <span id="total-price">{{ count }}</span> CNY</strong></p>
             </div>
         </div>
+        <a class="btn btn-primary pull-left" href="{% url "show_list:pdf" %}?id={{ id }}" type="button">下载Excel</a>
     </div>
 
 
@@ -69,6 +70,7 @@
         var categoryId = {{ z_category }};
         var pro_array = JSON.parse('{{ pro_array | escapejs }}');
         var cateName, stepName, rulesID;
+
         function checkIsValid() {
             // Z240 Step 8C 如果PCIE硬盘没有选，则必选一项
             var lengthHD = $("input[name='Step 8C: HARD DRIVE 1']:checked").length;
@@ -86,6 +88,7 @@
             }
             return true
         }
+
         $(".add-parts-settings").on("click", function () {
             $.post("{% url 'show_list:test' %}",
                 {
