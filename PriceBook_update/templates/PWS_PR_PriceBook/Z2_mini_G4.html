@@ -5,6 +5,7 @@
         <p><strong>选择产品: <span id="auto-total-item">{{ qty }}</span> 项 </strong></p>
         <p><strong>单价总计: <span id="auto-total-price">{{ count }}</span> CNY</strong></p>
     </div> -->
+    <script src="https://cdn.bootcss.com/fullPage.js/3.0.4/fullpage.min.js"></script>
     <h3 class="text-center product-title">{{ z2_mini_g4.name }}</h3>
     <!-- <br><br> -->
     <div class="table-responsive customer-table">
@@ -90,5 +91,56 @@
         //         alert("请确认" + stepName[i] + "是否选择正确")
         //     }
         // }
+
+        function setStorage () {
+          var pageVal = $(".next").attr("href")
+          var page = pageVal.split("&")[1].split("=")[1]
+
+          var radios = $('input[type="radio"]:checked');
+          var checkeds = $('input[type="checkbox"]:checked');
+          var array_radios = [];
+          var array_radios_price = [];
+          var array_checkeds = [];
+          var array_checkeds_price = [];
+
+          for (var i = 0; i < radios.length; i++) {
+              array_radios.push($(radios[i]).attr("data-index-number"))
+              var itemPrice = $("#" + $(radios[i]).attr("data-index-number")).text();
+              array_radios_price.push(itemPrice)
+          }
+          for (var j = 0; j < checkeds.length; j++) {
+              array_checkeds.push($(checkeds[j]).attr("data-index-number"))
+              var itemPrice = $("#" + $(checkeds[j]).attr("data-index-number")).text();
+              array_checkeds_price.push(itemPrice)
+          }
+
+          var arrayTotal = array_radios.concat(array_checkeds)
+          var arrayPrice = array_radios_price.concat(array_checkeds_price)
+
+          var localData = JSON.parse(localStorage.getItem("productId"))
+          var localPrice = JSON.parse(localStorage.getItem("productPrice"))
+
+          if (localData !== null || localPrice !== null) {
+            if (localData.length !== 0 ) {
+              localData = localData.concat(arrayTotal)
+            }
+
+            if (localPrice.length !== 0) {
+              localPrice = localPrice.concat(arrayPrice)
+            }
+
+          } else {
+            localData = arrayTotal
+            localPrice = arrayPrice
+          }
+
+          localStorage.setItem("productId", JSON.stringify(localData));
+          localStorage.setItem("productPrice", JSON.stringify(localPrice));
+        }
+
+
+        $(".next").on("click", function() {
+          setStorage()
+        })
     </script>
 {% endblock content %}

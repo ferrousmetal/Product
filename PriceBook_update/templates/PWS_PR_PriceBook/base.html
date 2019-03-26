@@ -16,10 +16,27 @@
             var pathName = window.location.pathname;
             var sum = 0;
             var item = 0;
+
+            var localData = JSON.parse(localStorage.getItem("productId")) || [];
+            var localPrice = JSON.parse(localStorage.getItem("productPrice")) || [];
+
+
+
             $(document).ready(function () {
+              function getSum(total, num) {
+                return total + Math.round(num);
+              }
+              var totalPrice = localPrice.reduce(getSum, 0)
+              $("#total-item").text(localData.length)
+              $("#total-price").text(totalPrice)
+
                 function calculateCheckedPrice() {
                     sum = 0;
                     item = 0;
+
+                    localData = JSON.parse(localStorage.getItem("productId")) || [];
+                    localPrice = JSON.parse(localStorage.getItem("productPrice")) || [];
+
                     $('input[type="checkbox"]:checked').each(function () {
                         var dataIndexNumber = $(this).data("indexNumber");
                         var itemPrice = $("#" + dataIndexNumber).text();
@@ -31,8 +48,8 @@
                         sum += parseInt(itemPrice)
                     })
                     item += $('input[type="checkbox"]:checked').length + $('input[type="radio"]:checked').length;
-                    $("#total-price").text(sum);
-                    $("#total-item").text(item);
+                    $("#total-price").text(sum + localPrice.reduce(getSum, 0));
+                    $("#total-item").text(item + localData.length);
                     $("#auto-total-price").text(sum);
                     $("#auto-total-item").text(item);
                     return sum;
