@@ -14,8 +14,8 @@
                 <th class="text-center">部件定货号(AV#)</th>
                 <th class="text-center">产品描述(Short Description)</th>
                 <th colspan="2" class="text-center">配置规则(Rules Description)</th>
-                <th class="text-center">End of Manufacturing (EM)</th>
-                <th class="text-center">CECP & EStar</th>
+                <!-- <th class="text-center">End of Manufacturing (EM)</th>
+                <th class="text-center">CECP & EStar</th> -->
                 <th class="text-center">List Price with VAT</th>
             </tr>
             </thead>
@@ -25,8 +25,8 @@
                     <th colspan="2">{{ i.name }}</th>
                     <th class="text-center choice-option" width="100">{{ i.choice }}</th>
                     <th width="25%">{{ i.Rules }}</th>
-                    <th></th>
-                    <th></th>
+                    <!-- <th></th>
+                    <th></th> -->
                     <th></th>
                 </tr>
                 {% for j in i.product_set.all %}
@@ -46,8 +46,8 @@
 
                         </td>
                         <td>{{ j.rules_descrip }}</td>
-                        <td class="text-center">{{ j.End_of_Manufacturing }}</td>
-                        <td>{{ j.CECP_EStar }}</td>
+                        <!-- <td class="text-center">{{ j.End_of_Manufacturing }}</td>
+                        <td>{{ j.CECP_EStar }}</td> -->
                         <td class="text-center " id="{{ j.id }}">{{ j.List_Price }}</td>
                     </tr>
                 {% endfor %}
