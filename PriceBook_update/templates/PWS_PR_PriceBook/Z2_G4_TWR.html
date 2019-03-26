@@ -1,100 +1,56 @@
-{% extends "PWS_PR_PriceBook/base.html" %}
-{% block title %}<title>Z2 G4 TWR</title>{% endblock title %}
-{% block content %}
-    <div class="pull-right" style="color:brown;">
-        <p><strong>选择产品: <span id="auto-total-item">{{ qty }}</span> 项 </strong></p>
-        <p><strong>单价总计: <span id="auto-total-price">{{ count }}</span> CNY</strong></p>
-    </div>
-    <h3 class="text-center">Z2 G4 TWR</h3>
-    <br><br>
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block title %}<title>常用网站</title>{% endblock title %}
 
-    <div class="table-responsive customer-table">
+    <script src="{% static "jquery-3.1.1.js" %}"></script>
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <link rel="stylesheet" href="{% static "mycss/custom.css" %}">
+    <style>
+        .customer-table table .table-caption th {
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+    </style>
+</head>
+<body class="body-content">
+<div>
+    <div style="margin: auto;width: 1200px;" class="table-responsive customer-table">
         <table>
             <thead>
             <tr class="table-caption">
-                <th colspan="10" class="text-center">HP Z2 mini Workstation</th>
-            </tr>
-            <tr>
-                <th class="text-center">部件定货号(AV#)</th>
-                <th class="text-center">产品描述(Short Description)</th>
-                <th colspan="2" class="text-center">配置规则(Rules Description)</th>
-                <th class="text-center">End of Manufacturing (EM)</th>
-                <th class="text-center">CECP & EStar</th>
-                <th class="text-center">List Price with VAT</th>
-                <th class="text-center">Qty</th>
-                <th class="text-center">编辑</th>
-                <th class="text-center">删除</th>
+                <th style="text-align: center;">所属部件</th>
+                <th style="text-align: center;">部件定货号</th>
+                <th style="text-align: center;">产品描述</th>
+                <th style="text-align: center;">End of Manufacturing</th>
+                <th style="text-align: center;">List Price</th>
             </tr>
             </thead>
             <tbody>
-            {% for i in step %}
-                <tr class="info">
-                    <th colspan="2">{{ i.name }}</th>
-                    <th class="text-center choice-option" width="100">{{ i.choice }}</th>
-                    <th width="25%">{{ i.Rules }}</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+            {% for pros in pro_list %}
+                <tr class="pro-step-name">
+                    {% for stem,pro in pros.items %}
+                        <td style="text-align: center;">{{ stem }}</td>
+                        <td style="text-align: center;" class="product-part-no">{{ pro.name }}</td>
+                        <td style="text-align: center;">{{ pro.descrip }}</td>
+                        <td style="text-align: center;">{{ pro.End_of_Manufacturing }}</td>
+                        <td style="text-align: center;">{{ pro.List_Price }}</td>
+                    {% endfor %}
                 </tr>
-                {% for j in i.product_set.all %}
-                    <tr>
-                        <td>{{ j.name }}</td>
-                        <td width="25%">{{ j.descrip }}</td>
-                        <td class="text-center">
-                            {% if i.choice == "必选1项" %}
-                                {% if j.Qty == "1" %}
-                                    <input type="radio" name="{{ i.name }}" checked data-index="{{ i.choice }}"
-                                           data-index-number="{{ j.id }}" id="{{ j.name }}">
-                                {% else %}
-                                    <input type="radio" name="{{ i.name }}" data-index="{{ i.choice }}"
-                                           data-index-number="{{ j.id }}" id="{{ j.name }}">
-                                {% endif %}
-                            {% elif i.choice == "可选且只能选1项" %}
-                                <input type="radio" name="{{ i.name }}" data-index="{{ i.choice }}"
-                                       data-index-number="{{ j.id }}" id="{{ j.name }}">
-                            {% else %}
-                                <input type="checkbox" name="{{ i.name }}" data-index="{{ i.choice }}"
-                                       data-index-number="{{ j.id }}" id="{{ j.name }}">
-                            {% endif %}
-
-                        </td>
-                        <td>{{ j.rules_descrip }}</td>
-                        <td class="text-center">{{ j.End_of_Manufacturing }}</td>
-                        <td>{{ j.CECP_EStar }}</td>
-                        <td class="text-center " id="{{ j.id }}">{{ j.List_Price }}</td>
-                        <td class="text-center">{% if j.Qty == "1" %}{{ j.Qty }}{% endif %}</td>
-                        {% if  request.session.super_user %}
-                            <td>
-                                <button class="btn btn-primary save-product-btn" type="button" id="save-{{ j.id }}">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </button>
-                            </td>
-                            <td style="width: 2px;">
-                                <button class="btn btn-primary delete-product-btn" id="delete-{{ j.id }}"
-                                        type="button"><span
-                                        class="glyphicon glyphicon-trash"></span>
-                                </button>
-                            </td>
-                        {% else %}
-                            <td></td>
-                            <td></td>
-                        {% endif %}
-                    </tr>
-                {% endfor %}
             {% endfor %}
             </tbody>
         </table>
+        <!-- <a href="" class="btn btn-primary add-parts-settings" type="button">增加</a> -->
+        <div class="pull-right" style="color:brown;">
+            <p><strong>选择产品: <span id="total-item">{{ qty }}</span> 项 </strong></p>
+            <p><strong>单价总计: <span id="total-price">{{ count }}</span> CNY</strong></p>
+        </div>
     </div>
-    {% if request.session.session_email %}
-        <button class="btn btn-primary" type="button" id="rule_button">保存配置</button>
-    {% endif %}
-    <div class="pull-right" style="color:brown;">
-        <p><strong>选择产品: <span id="total-item">{{ qty }}</span> 项 </strong></p>
-        <p><strong>单价总计: <span id="total-price">{{ count }}</span> CNY</strong></p>
-        <p><strong>折扣价格: <span id="discount-price">xxx</span> CNY</strong></p>
-    </div>
-    <div class="clearfix"></div>
-{% endblock content %}
+</div>
+</body>
+</html>

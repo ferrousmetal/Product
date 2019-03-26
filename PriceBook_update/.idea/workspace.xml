@@ -4,16 +4,10 @@
     <list default="true" id="1dc4d3f1-244b-48b5-8243-6ad3d20a6314" name="Default Changelist" comment="new">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PriceBook_update/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/PriceBook_update/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/show_update_list/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/show_update_list/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/show_update_list/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/show_update_list/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/show_update_list/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/show_update_list/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/PWS_PR_PriceBook/AMO.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/PWS_PR_PriceBook/AMO.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/PWS_PR_PriceBook/Monitor.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/PWS_PR_PriceBook/Monitor.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z2_mini_G4.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z2_mini_G4.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/PWS_PR_PriceBook/extend_service.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/PWS_PR_PriceBook/extend_service.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/PWS_PR_PriceBook/show_category.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/PWS_PR_PriceBook/show_category.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/PWS_PR_PriceBook/upgrade_service.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/PWS_PR_PriceBook/upgrade_service.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uwsgi.log" beforeDir="false" afterPath="$PROJECT_DIR$/uwsgi.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uwsgi.pid" beforeDir="false" afterPath="$PROJECT_DIR$/uwsgi.pid" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z2_G4_TWR.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z2_G4_TWR.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/PWS_PR_PriceBook/user_rules.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/PWS_PR_PriceBook/user_rules.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,103 +15,68 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/PriceBook_update$test.coverage" NAME="test Coverage Results" MODIFIED="1553570219573" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/show_update_list/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1932">
-              <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
+            <state relative-caret-position="277">
+              <caret line="1206" lean-forward="true" selection-start-line="1206" selection-end-line="1206" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/cairocffi/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="65" column="55" lean-forward="true" selection-start-line="65" selection-start-column="55" selection-end-line="65" selection-end-column="55" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/user_rules.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="302">
+              <caret line="171" column="58" lean-forward="true" selection-start-line="171" selection-start-column="58" selection-end-line="171" selection-end-column="58" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/base.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1899">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
               <folding>
-                <element signature="e#0#45#0" expanded="true" />
-                <element signature="e#3628#4788#0" />
-                <element signature="e#4815#4991#0" />
-                <element signature="e#5016#6014#0" />
-                <element signature="e#6041#6611#0" />
-                <element signature="e#6637#6889#0" />
-                <element signature="e#6924#7206#0" />
-                <element signature="e#7245#7535#0" />
-                <element signature="e#7570#7731#0" />
-                <element signature="e#7770#7950#0" />
-                <element signature="e#7983#9065#0" />
-                <element signature="e#9098#9745#0" />
-                <element signature="e#9777#10195#0" />
-                <element signature="e#10224#11252#0" />
-                <element signature="e#11281#11896#0" />
-                <element signature="e#11924#12338#0" />
-                <element signature="e#12373#13484#0" />
-                <element signature="e#13519#14206#0" />
-                <element signature="e#14240#14653#0" />
-                <element signature="e#14687#15564#0" />
-                <element signature="e#15598#16084#0" />
-                <element signature="e#16117#16532#0" />
-                <element signature="e#16569#17520#0" />
-                <element signature="e#17557#18106#0" />
-                <element signature="e#18142#18564#0" />
-                <element signature="e#18593#19702#0" />
-                <element signature="e#19731#20416#0" />
-                <element signature="e#20444#20870#0" />
-                <element signature="e#20915#21887#0" />
-                <element signature="e#21932#22502#0" />
-                <element signature="e#22546#22989#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/custom_deploy.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="25" column="24" lean-forward="true" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/extend_service.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3">
-              <caret line="47" column="30" lean-forward="true" selection-start-line="47" selection-start-column="30" selection-end-line="47" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/upgrade_service.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-230">
-              <caret line="27" column="35" lean-forward="true" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/AMO.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="8" column="19" lean-forward="true" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/show_update_list/utils.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="21" column="25" lean-forward="true" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
-              <folding>
-                <element signature="e#0#23#0" expanded="true" />
+                <element signature="n#block#2;n#!!top" />
+                <element signature="n#block#3;n#!!top" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z2_G4_TWR.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="155">
+              <caret line="27" column="58" lean-forward="true" selection-start-line="27" selection-start-column="58" selection-end-line="27" selection-end-column="58" />
+              <folding>
+                <element signature="n#style#0;n#td#2;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z2_mini_G4.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="63" column="28" selection-start-line="63" selection-start-column="28" selection-end-line="63" selection-end-column="28" />
+            <state relative-caret-position="1186">
+              <caret line="75" column="19" lean-forward="true" selection-start-line="75" selection-start-column="19" selection-end-line="75" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -125,17 +84,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PriceBook_update/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="109" column="46" selection-start-line="109" selection-start-column="46" selection-end-line="109" selection-end-column="46" />
+            <state relative-caret-position="680">
+              <caret line="127" column="8" selection-start-line="127" selection-end-line="127" selection-end-column="16" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/add_assemble_step.html">
+        <entry file="file://$PROJECT_DIR$/show_update_list/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="25" column="36" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
+            <state relative-caret-position="680">
+              <caret line="83" column="33" lean-forward="true" selection-start-line="83" selection-start-column="33" selection-end-line="83" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#32#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -143,8 +105,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/Monitor.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="45" column="16" lean-forward="true" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="16" />
+            <state relative-caret-position="945">
+              <caret line="45" column="16" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -154,8 +116,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -165,10 +127,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z8_G4.html" />
-        <option value="$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z6_G4.html" />
         <option value="$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z4_G4.html" />
-        <option value="$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z2_G4_TWR.html" />
         <option value="$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z2_G4_SFF.html" />
         <option value="$PROJECT_DIR$/templates/admin/add_z_pro.html" />
         <option value="$PROJECT_DIR$/templates/admin/edit_z_pro.html" />
@@ -202,27 +161,30 @@
         <option value="$PROJECT_DIR$/templates/admin/edit_Monitor.html" />
         <option value="$PROJECT_DIR$/templates/admin/add_amo_step.html" />
         <option value="$PROJECT_DIR$/templates/admin/amo_step.html" />
-        <option value="$PROJECT_DIR$/show_update_list/urls.py" />
         <option value="$PROJECT_DIR$/templates/admin/amo_pro.html" />
-        <option value="$PROJECT_DIR$/templates/PWS_PR_PriceBook/user_rules.html" />
-        <option value="$PROJECT_DIR$/templates/PWS_PR_PriceBook/show_category.html" />
         <option value="$PROJECT_DIR$/templates/PWS_PR_PriceBook/base.html" />
-        <option value="$PROJECT_DIR$/PriceBook_update/settings.py" />
         <option value="$PROJECT_DIR$/templates/PWS_PR_PriceBook/Monitor.html" />
         <option value="$PROJECT_DIR$/templates/PWS_PR_PriceBook/AMO.html" />
         <option value="$PROJECT_DIR$/show_update_list/utils.py" />
         <option value="$PROJECT_DIR$/templates/PWS_PR_PriceBook/upgrade_service.html" />
         <option value="$PROJECT_DIR$/templates/PWS_PR_PriceBook/extend_service.html" />
         <option value="$PROJECT_DIR$/templates/PWS_PR_PriceBook/custom_deploy.html" />
-        <option value="$PROJECT_DIR$/show_update_list/views.py" />
         <option value="$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z2_mini_G4.html" />
+        <option value="$PROJECT_DIR$/templates/PWS_PR_PriceBook/show_category.html" />
+        <option value="$PROJECT_DIR$/test.py" />
+        <option value="/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/wkhtmltopdf/__init__.py" />
+        <option value="$PROJECT_DIR$/templates/PWS_PR_PriceBook/user_rules.html" />
+        <option value="$PROJECT_DIR$/PriceBook_update/settings.py" />
+        <option value="$PROJECT_DIR$/show_update_list/urls.py" />
+        <option value="$PROJECT_DIR$/show_update_list/views.py" />
+        <option value="$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z2_G4_TWR.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="300" />
-    <option name="y" value="37" />
-    <option name="width" value="1577" />
+    <option name="x" value="293" />
+    <option name="y" value="203" />
+    <option name="width" value="2255" />
     <option name="height" value="1273" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -233,6 +195,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -253,6 +216,24 @@
             <path>
               <item name="PriceBook_update" type="b2602c69:ProjectViewProjectNode" />
               <item name="PriceBook_update" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PriceBook_update" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PriceBook_update" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PriceBook_update" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PriceBook_update" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+              <item name="bootstrap.css" type="620a8d5e:NestingTreeNode" />
+            </path>
+            <path>
+              <item name="PriceBook_update" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PriceBook_update" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -265,7 +246,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -293,7 +273,29 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.test">
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="PriceBook_update" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="PriceBook_update" type="Python.DjangoServer" factoryName="Django server">
       <module name="PriceBook_update" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -317,6 +319,11 @@
       <option name="customRunCommand" value="" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.test" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -341,6 +348,9 @@
       <workItem from="1547007713291" duration="51951000" />
       <workItem from="1547113887040" duration="24554000" />
       <workItem from="1553076470582" duration="4751000" />
+      <workItem from="1553502334992" duration="3131000" />
+      <workItem from="1553565850333" duration="10679000" />
+      <workItem from="1553578600441" duration="5390000" />
     </task>
     <task id="LOCAL-00001" summary="fsdfsd">
       <created>1546204838137</created>
@@ -405,22 +415,29 @@
       <option name="project" value="LOCAL" />
       <updated>1547127702324</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="new">
+      <created>1553566521326</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1553566521326</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="175928000" />
+    <option name="totallyTimeSpent" value="195128000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="300" y="37" width="1577" height="1273" extended-state="0" />
+    <frame x="331" y="151" width="2255" height="1273" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30754098" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20154335" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32960412" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -429,7 +446,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.21944922" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.49827883" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -470,23 +487,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="new" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z2_G4_TWR.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="7" column="37" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="37" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#9;n#tr#1;n#tbody#0;n#table#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/admin/edit_z_pro.html" />
-    <entry file="file://$PROJECT_DIR$/templates/admin/edit_保外延长服务.html" />
-    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z2_G4_SFF.html" />
-    <entry file="file://$PROJECT_DIR$/../../终极blog/myapp/views.py" />
-    <entry file="file://$PROJECT_DIR$/../../终极blog/myapp/context_processors.py" />
     <entry file="file://$PROJECT_DIR$/templates/admin/admin_monitor_add.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="25">
@@ -575,13 +575,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="350">
           <caret line="14" column="56" selection-start-line="14" selection-start-column="56" selection-end-line="14" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/user_rules_label.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="16" column="25" lean-forward="true" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -684,47 +677,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1365">
-          <caret line="65" column="16" selection-start-line="65" selection-start-column="16" selection-end-line="65" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/user_rules.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4032">
-          <caret line="192" column="22" selection-start-line="192" selection-start-column="22" selection-end-line="192" selection-end-column="22" />
-          <folding>
-            <element signature="e#131#168#0#HTML" expanded="true" />
-            <element signature="e#182#209#0#HTML" expanded="true" />
-            <element signature="e#242#277#0#HTML" expanded="true" />
-            <element signature="e#597#624#0#HTML" expanded="true" />
-            <element signature="e#655#682#0#HTML" expanded="true" />
-            <element signature="e#714#741#0#HTML" expanded="true" />
-            <element signature="e#772#799#0#HTML" expanded="true" />
-            <element signature="e#846#873#0#HTML" expanded="true" />
-            <element signature="e#1112#1139#0#HTML" expanded="true" />
-            <element signature="e#1184#1211#0#HTML" expanded="true" />
-            <element signature="e#1284#1311#0#HTML" expanded="true" />
-            <element signature="e#1363#1390#0#HTML" expanded="true" />
-            <element signature="e#1455#1482#0#HTML" expanded="true" />
-            <element signature="e#2005#2012#1#HTML" expanded="true" />
-            <element signature="e#2742#2762#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/show_update_list/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1365">
-          <caret line="66" column="46" selection-start-line="66" selection-start-column="41" selection-end-line="66" selection-end-column="46" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/admin/amo_pro.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
@@ -732,12 +684,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/show_category.html">
+    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/custom_deploy.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2520">
-          <caret line="120" column="36" selection-start-line="120" selection-start-column="36" selection-end-line="120" selection-end-column="36" />
+        <state relative-caret-position="525">
+          <caret line="25" column="24" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/extend_service.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="987">
+          <caret line="47" column="30" selection-start-line="47" selection-start-column="30" selection-end-line="47" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/upgrade_service.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="567">
+          <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/AMO.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="19" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/index.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/show_update_list/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="21" column="25" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
           <folding>
-            <element signature="e#863#870#1#HTML" expanded="true" />
+            <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -749,102 +732,105 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PriceBook_update/settings.py">
+    <entry file="file://$PROJECT_DIR$/test.py" />
+    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/user_rules_label.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="109" column="46" selection-start-line="109" selection-start-column="46" selection-end-line="109" selection-end-column="46" />
+        <state relative-caret-position="357">
+          <caret line="17" column="28" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/wkhtmltopdf/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/show_category.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="6" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/Monitor.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="45" column="16" lean-forward="true" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="16" />
+        <state relative-caret-position="945">
+          <caret line="45" column="16" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/AMO.html">
+    <entry file="file://$PROJECT_DIR$/show_update_list/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="19" lean-forward="true" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/upgrade_service.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-230">
-          <caret line="27" column="35" lean-forward="true" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/extend_service.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3">
-          <caret line="47" column="30" lean-forward="true" selection-start-line="47" selection-start-column="30" selection-end-line="47" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/custom_deploy.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="25" column="24" lean-forward="true" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/show_update_list/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="21" column="25" lean-forward="true" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
+        <state relative-caret-position="680">
+          <caret line="83" column="33" lean-forward="true" selection-start-line="83" selection-start-column="33" selection-end-line="83" selection-end-column="33" />
           <folding>
-            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/cairocffi/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="65" column="55" lean-forward="true" selection-start-line="65" selection-start-column="55" selection-end-line="65" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PriceBook_update/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="127" column="8" selection-start-line="127" selection-end-line="127" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/user_rules.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="171" column="58" lean-forward="true" selection-start-line="171" selection-start-column="58" selection-end-line="171" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1899">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="n#block#2;n#!!top" />
+            <element signature="n#block#3;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/weasyprint/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2067">
+          <caret line="171" column="7" selection-start-line="171" selection-start-column="7" selection-end-line="171" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/show_update_list/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1932">
-          <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-            <element signature="e#3628#4788#0" />
-            <element signature="e#4815#4991#0" />
-            <element signature="e#5016#6014#0" />
-            <element signature="e#6041#6611#0" />
-            <element signature="e#6637#6889#0" />
-            <element signature="e#6924#7206#0" />
-            <element signature="e#7245#7535#0" />
-            <element signature="e#7570#7731#0" />
-            <element signature="e#7770#7950#0" />
-            <element signature="e#7983#9065#0" />
-            <element signature="e#9098#9745#0" />
-            <element signature="e#9777#10195#0" />
-            <element signature="e#10224#11252#0" />
-            <element signature="e#11281#11896#0" />
-            <element signature="e#11924#12338#0" />
-            <element signature="e#12373#13484#0" />
-            <element signature="e#13519#14206#0" />
-            <element signature="e#14240#14653#0" />
-            <element signature="e#14687#15564#0" />
-            <element signature="e#15598#16084#0" />
-            <element signature="e#16117#16532#0" />
-            <element signature="e#16569#17520#0" />
-            <element signature="e#17557#18106#0" />
-            <element signature="e#18142#18564#0" />
-            <element signature="e#18593#19702#0" />
-            <element signature="e#19731#20416#0" />
-            <element signature="e#20444#20870#0" />
-            <element signature="e#20915#21887#0" />
-            <element signature="e#21932#22502#0" />
-            <element signature="e#22546#22989#0" />
-          </folding>
+        <state relative-caret-position="277">
+          <caret line="1206" lean-forward="true" selection-start-line="1206" selection-end-line="1206" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z2_mini_G4.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="63" column="28" selection-start-line="63" selection-start-column="28" selection-end-line="63" selection-end-column="28" />
+        <state relative-caret-position="1186">
+          <caret line="75" column="19" lean-forward="true" selection-start-line="75" selection-start-column="19" selection-end-line="75" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/PWS_PR_PriceBook/Z2_G4_TWR.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="27" column="58" lean-forward="true" selection-start-line="27" selection-start-column="58" selection-end-line="27" selection-end-column="58" />
+          <folding>
+            <element signature="n#style#0;n#td#2;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

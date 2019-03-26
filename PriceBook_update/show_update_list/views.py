@@ -1,12 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from show_update_list.models import *
 from show_update_list.utils import get_hash, quick_sort
 from django.urls import reverse
 import re, json
 from django.http import JsonResponse, HttpResponse
-from .utils import Page,Page1
-import pdfkit
+from .utils import Page, Page1
 
 
 # Create your views here.
@@ -36,7 +35,7 @@ class Z2_mini_G4(View):
         qty = 0
         count = 0
         page = request.GET.get('page')
-        contacts = Page(step,page)
+        contacts = Page(step, page)
         return render(request, "PWS_PR_PriceBook/Z2_mini_G4.html", locals())
 
 
@@ -646,6 +645,7 @@ class Additional_software_Del(View):
 
 class Admin_Z_Product_del(View):
     """"""
+
     def post(self, request):
         id = request.POST.get("id")
         session_number = request.session.get('session_email')
@@ -746,8 +746,8 @@ class Admin_AMO(View):
     """AMO产品添加"""
 
     def get(self, request):
-        monitor_type=AMO_step.objects.all()
-        return render(request, "admin/edit_AMO.html",locals())
+        monitor_type = AMO_step.objects.all()
+        return render(request, "admin/edit_AMO.html", locals())
 
     def post(self, request):
         pid = request.POST.get("pid")
@@ -930,7 +930,7 @@ class saveUserRules2(View):
         checkeds = json.loads(request.POST.get('checkeds'))
         pro_number = request.POST.get('count')
         total_count = request.POST.get('qty')
-        print(pro_number,total_count)
+        print(pro_number, total_count)
         vip_id = Huipu_User.objects.get(email=session_number).vip_range_id
         if vip_id:
             total_count = float(total_count) * float((Discount.objects.get(id=int(vip_id)).discount))
@@ -940,17 +940,16 @@ class saveUserRules2(View):
             new_array.append(int(i))
         new_array1 = quick_sort(new_array)
         print("bbb")
-        rules_name1 = rules_name +'---'+ str(uuid.uuid4())[:7]
+        rules_name1 = rules_name + '---' + str(uuid.uuid4())[:7]
         user_id = Huipu_User.objects.get(email=session_number).id
         rulesName.objects.create(name=rules_name1, pro_number=pro_number, total_count=total_count,
                                  blone_user_id=user_id)
         assemble_id = rulesName.objects.get(name=rules_name1).id
-        cateID=rulesName.objects.get(name=rules_name1).id
+        cateID = rulesName.objects.get(name=rules_name1).id
         for array in sorted(new_array1):
             userAssemble.objects.create(data_index_number=array,
                                         assemble_name_id=assemble_id)
         return JsonResponse({"msg": 1, "cateID": cateID})
-
 
 
 class showUserLabel(View):
@@ -1047,6 +1046,7 @@ from django.template.loader import render_to_string
 
 class Test(View):
     """"""
+
     def post(self, request):
         rules_id = request.POST.get("label")
         select_pros = rulesName.objects.get(id=int(rules_id)).userassemble_set.all()
@@ -1062,8 +1062,8 @@ class Test(View):
             step_list.append(i.name)
         step_list1 = json.dumps(step_list)
         html = render_to_string('PWS_PR_PriceBook/Z2_mini_G4.html', locals())
-        return JsonResponse({"res": 1, "html": html, "cateName": z2_mini_g4.name, "step_list1": step_list1, "rules_id": rules_id})
-
+        return JsonResponse(
+            {"res": 1, "html": html, "cateName": z2_mini_g4.name, "step_list1": step_list1, "rules_id": rules_id})
 
 
 class Test2(View):
@@ -1236,3 +1236,34 @@ class DelAmoStep(View):
         id = request.GET.get("id")
         AMO_step.objects.get(id=int(id)).delete()
         return redirect(reverse("show_list:admin_auth"))
+
+
+
+from django.conf import settings
+import weasyprint
+def PDF(request):
+    if request.method =='GET':
+        id = request.GET.get("id")
+        label = rulesName.objects.get(id=int(id))
+        rules = label.userassemble_set.all()
+        qty = label.pro_number
+        count = label.total_count
+        pro = []
+        for i in rules:
+            pro.append(Product.objects.get(id=int(i.data_index_number)).name)
+        pro_array = json.dumps(pro)
+        for i in rules:
+            z_category = Z_Category.objects.get(id=Assemble_Steps.objects.get(
+                id=Product.objects.get(id=int(i.data_index_number)).assemble_product_id).assemble_category_id).id
+            break
+        pro_list = [{Assemble_Steps.objects.get(id=Product.objects.get(id=int(
+            rule.data_index_number)).assemble_product_id).name: Product.objects.get(
+            id=int(rule.data_index_number))} for rule in rules]
+        order = get_object_or_404(rulesName, id=id)
+        html = render_to_string("PWS_PR_PriceBook/Z2_G4_TWR.html", locals())
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'filename="order_{}.pdf"'.format(order.id)
+        weasyprint.HTML(string=html).write_pdf(response,stylesheets=[weasyprint.CSS('/Users/akun/Desktop/Product/PriceBook_update/static/css/bootstrap.min.css')])
+        return response
+
+

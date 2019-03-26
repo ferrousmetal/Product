@@ -2,7 +2,7 @@
 {% block title %}<title>我的配置详细</title>{% endblock title %}
 {% block content %}
     <div style="margin: 0 auto;width: 1200px;">
-        <h3 style="text-align: center;">我的详细配置</h3>
+        <h3 style="text-align: center;">[{{ label.name }}]详细配置</h3>
     </div>
     <div style="margin: auto;width: 1200px;" class="table-responsive customer-table">
         <button type="button" class="btn btn-primary add-parts-settings pull-right" data-toggle="modal"
@@ -58,12 +58,14 @@
             <p><strong>选择产品: <span id="total-item">{{ qty }}</span> 项 </strong></p>
             <p><strong>单价总计: <span id="total-price">{{ count }}</span> CNY</strong></p>
         </div>
+        <a class="btn btn-primary pull-left" href="{% url "show_list:pdf" %}?id={{ id }}" type="button">下载PDF</a>
     </div>
 
     <script>
         var categoryId = {{ z_category }};
         var pro_array = JSON.parse('{{ pro_array | escapejs }}');
         var cateName, stepName, rulesID;
+
         function checkIsValid() {
             // Z240 Step 8C 如果PCIE硬盘没有选，则必选一项
             var lengthHD = $("input[name='Step 8C: HARD DRIVE 1']:checked").length;
@@ -81,6 +83,7 @@
             }
             return true
         }
+
         $(".add-parts-settings").on("click", function () {
             $.post("{% url 'show_list:test' %}",
                 {
