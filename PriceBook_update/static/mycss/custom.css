@@ -152,3 +152,12 @@ tbody th:first-child {
 .modal-new-w {
   max-width: 1000px;
 }
+
+.pagination {
+  text-align: center;
+  display: block;
+}
+
+.pagination .previous, .pagination .next {
+  padding: 15px;
+}
