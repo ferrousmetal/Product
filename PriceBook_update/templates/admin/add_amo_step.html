@@ -1,8 +1,9 @@
 {% extends "admin/admin.html" %}
 {% block title %}<title>Admin</title>{% endblock title %}
 {% block content %}
-    <div style="margin: auto;width: 800px;">
-        <h3 style="text-align: right;">AMO部件增加</h3>
+    <br>
+    <div class="col-md-6 col-md-offset-3 col-xs-12">
+        <h4 style="text-align: center;">AMO部件增加</h4>
         <form class="form-horizontal" method="post">
         {% csrf_token %}
             <div class="form-group">

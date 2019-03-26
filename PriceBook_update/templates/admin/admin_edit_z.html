@@ -36,7 +36,7 @@
     </nav>
 {% endblock nav %}
 {% block content %}
-    <div style="margin: auto;width: 800px;">
+    <div class="col-md-6 col-md-offset-3 col-xs-12">
         <form class="form-horizontal" method="post">
             <h4 style="text-align: right;">{{ category.name }}</h4>
             {% csrf_token %}
