@@ -8,6 +8,7 @@ body {
   padding-right: 20px;
 }
 
+
 table {
   background: #f5f5f5;
   border-collapse: separate;
@@ -159,5 +160,51 @@ tbody th:first-child {
 }
 
 .pagination .previous, .pagination .next {
-  padding: 15px;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  transition: all 0.5s;
+}
+
+.pagination .previous {
+  margin-right: 10px;
+}
+
+.pagination .previous:hover {
+  text-decoration: none;
+  background: #337ab7;
+  border-color: #337ab7;
+  color: #fff;
+}
+
+.pagination .next {
+  margin-left: 10px;
+}
+
+.pagination .next:hover {
+  text-decoration: none;
+  background: #337ab7;
+  border-color: #337ab7;
+  color: #fff;
+}
+
+.table-responsive {
+  border: none;
+}
+
+
+
+/*  Mobile Style */
+
+@media screen and (max-width: 600px) {
+  .body-content {
+    padding: 2px;
+    font-size: 12px;
+    margin-top: 50px;
+  }
+
+  .display-total-price {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+  }
 }

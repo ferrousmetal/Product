@@ -1,30 +1,30 @@
 {% extends "PWS_PR_PriceBook/base.html" %}
 {% block title %}<title>Z2 mini G4</title>{% endblock title %}
 {% block content %}
-    <div class="pull-right" style="color:brown;">
+    <!-- <div class="pull-right" style="color:brown;">
         <p><strong>选择产品: <span id="auto-total-item">{{ qty }}</span> 项 </strong></p>
         <p><strong>单价总计: <span id="auto-total-price">{{ count }}</span> CNY</strong></p>
-    </div>
-    <h3 class="text-center">{{ z2_mini_g4.name }}</h3>
-    <br><br>
+    </div> -->
+    <h3 class="text-center product-title">{{ z2_mini_g4.name }}</h3>
+    <!-- <br><br> -->
     <div class="table-responsive customer-table">
         <table>
             <thead>
             <tr>
-                <th class="text-center">部件定货号(AV#)</th>
-                <th class="text-center">产品描述(Short Description)</th>
-                <th colspan="2" class="text-center">配置规则(Rules Description)</th>
+                <th class="text-center">部件定货号</th>
+                <th class="text-center">产品描述</th>
+                <th class="text-center">配置规则</th>
                 <!-- <th class="text-center">End of Manufacturing (EM)</th>
                 <th class="text-center">CECP & EStar</th> -->
-                <th class="text-center">List Price with VAT</th>
+                <th class="text-center">List Price</th>
             </tr>
             </thead>
             <tbody>
             {% for i in contacts %}
                 <tr class="info">
-                    <th colspan="2">{{ i.name }}</th>
+                    <th>{{ i.name }}</th>
                     <th class="text-center choice-option" width="100">{{ i.choice }}</th>
-                    <th width="25%">{{ i.Rules }}</th>
+                    <th width="20%">{{ i.Rules }}</th>
                     <!-- <th></th>
                     <th></th> -->
                     <th></th>
@@ -45,7 +45,7 @@
                             {% endif %}
 
                         </td>
-                        <td>{{ j.rules_descrip }}</td>
+                        <!-- <td>{{ j.rules_descrip }}</td> -->
                         <!-- <td class="text-center">{{ j.End_of_Manufacturing }}</td>
                         <td>{{ j.CECP_EStar }}</td> -->
                         <td class="text-center " id="{{ j.id }}">{{ j.List_Price }}</td>
@@ -55,11 +55,7 @@
             </tbody>
         </table>
     </div>
-    <div class="pull-right" style="color:brown;">
-        <p><strong>选择产品: <span id="total-item">{{ qty }}</span> 项 </strong></p>
-        <p><strong>单价总计: <span id="total-price">{{ count }}</span> CNY</strong></p>
-        <p><strong>折扣价格: <span id="discount-price">xxx</span> CNY</strong></p>
-    </div>
+
     <div class="clearfix"></div>
     <div class="pagination" >
     <span class="step-links">
@@ -76,6 +72,13 @@
         {% endif %}
     </span>
     </div>
+
+    <div class="pull-right display-total-price" style="color:brown;">
+        <p><strong>选择产品: <span id="total-item">{{ qty }}</span> 项 </strong></p>
+        <p><strong>单价总计: <span id="total-price">{{ count }}</span> CNY</strong></p>
+        <p><strong>折扣价格: <span id="discount-price">xxx</span> CNY</strong></p>
+    </div>
+
     <script type="text/javascript">
         // var stepName = JSON.parse('{{ step_list1 | escapejs }}');
 

@@ -9,30 +9,33 @@
                 data-target="#edit-settings">编辑
         </button>
         <br>
-        <table>
+        <div class="table-responsive">
+            <table>
             <thead>
             <tr class="table-caption">
-                <th style="text-align: center;">所属部件</th>
-                <th style="text-align: center;">部件定货号</th>
-                <th style="text-align: center;">产品描述</th>
-                <th style="text-align: center;">End of Manufacturing</th>
-                <th style="text-align: center;">List Price</th>
+                <th width="300">所属部件</th>
+                <th>部件定货号</th>
+                <th width="300">产品描述</th>
+                <th>End of Manufacturing</th>
+                <th>List Price</th>
             </tr>
             </thead>
             <tbody>
             {% for pros in pro_list %}
                 <tr class="pro-step-name">
                     {% for stem,pro in pros.items %}
-                        <td style="text-align: center;">{{ stem }}</td>
-                        <td style="text-align: center;" class="product-part-no">{{ pro.name }}</td>
-                        <td style="text-align: center;">{{ pro.descrip }}</td>
-                        <td style="text-align: center;">{{ pro.End_of_Manufacturing }}</td>
-                        <td style="text-align: center;">{{ pro.List_Price }}</td>
+                        <td>{{ stem }}</td>
+                        <td class="product-part-no">{{ pro.name }}</td>
+                        <td>{{ pro.descrip }}</td>
+                        <td>{{ pro.End_of_Manufacturing }}</td>
+                        <td>{{ pro.List_Price }}</td>
                     {% endfor %}
                 </tr>
             {% endfor %}
             </tbody>
-        </table>
+            </table>
+        </div>
+
         <!-- <a href="" class="btn btn-primary add-parts-settings" type="button">增加</a> -->
         <div class="modal fade" id="edit-settings" role="dialog">
             <div class="modal-dialog modal-lg">
