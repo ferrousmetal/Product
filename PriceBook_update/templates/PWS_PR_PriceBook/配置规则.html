@@ -1,0 +1,187 @@
+{% extends "PWS_PR_PriceBook/base.html" %}
+{% block title %}<title>Z2 mini G4</title>{% endblock title %}
+{% block content %}
+    <!-- <div class="pull-right" style="color:brown;">
+        <p><strong>选择产品: <span id="auto-total-item">{{ qty }}</span> 项 </strong></p>
+        <p><strong>单价总计: <span id="auto-total-price">{{ count }}</span> CNY</strong></p>
+    </div> -->
+    <script src="https://cdn.bootcss.com/fullPage.js/3.0.4/fullpage.min.js"></script>
+    <h3 class="text-center product-title">{{ z2_mini_g4.name }}</h3>
+    <!-- <br><br> -->
+    <div class="table-responsive customer-table">
+        <table>
+            <thead>
+            <tr>
+                <th class="text-center" width="20%">部件定货号</th>
+                <th class="text-center">产品描述</th>
+                <th class="text-center">配置规则</th>
+                <!-- <th class="text-center">End of Manufacturing (EM)</th>
+                <th class="text-center">CECP & EStar</th> -->
+                <th class="text-center">List Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in contacts %}
+                <tr class="info">
+                    <th>{{ i.name }}</th>
+                    <th></th>
+                    <th class="text-center choice-option" width="100">{{ i.choice }}</th>
+                    <th width="20%">{{ i.Rules }}</th>
+                    <!-- <th></th>
+                    <th></th>
+                    <th></th> -->
+                </tr>
+                {% for j in i.product_set.all %}
+                    <tr>
+                        <td>{{ j.name }}</td>
+                        <td width="25%">{{ j.descrip }}</td>
+                        <td class="text-center">
+                            {% if i.belone_choice.less == 1 and i.belone_choice.more == 1 %}
+                                <input type="radio" name="{{ i.name }}" data-index="{{ i.choice }}"
+                                       data-index-number="{{ j.id }}" id="{{ j.name }}"
+                                       data-less="{{ i.belone_choice.less }}" data-more="{{ i.belone_choice.more }}">
+                            {% else %}
+                                <input type="checkbox" name="{{ i.name }}" data-index="{{ i.choice }}"
+                                       data-index-number="{{ j.id }}" id="{{ j.name }}"
+                                       data-less="{{ i.belone_choice.less }}" data-more="{{ i.belone_choice.more }}">
+                            {% endif %}
+
+                        </td>
+                        <!-- <td>{{ j.rules_descrip }}</td> -->
+                        <!-- <td class="text-center">{{ j.End_of_Manufacturing }}</td>
+                        <td>{{ j.CECP_EStar }}</td> -->
+                        <td class="text-center " id="{{ j.id }}">{{ j.List_Price }}</td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="pull-right display-total-price" style="color:brown;">
+        <p><strong>选择产品: <span id="total-item">{{ qty }}</span> 项 </strong></p>
+        <p><strong>单价总计: <span id="total-price">{{ count }}</span> CNY</strong></p>
+        <p><strong>折扣价格: <span id="discount-price">xxx</span> CNY</strong></p>
+    </div>
+
+    <script type="text/javascript">
+        // var stepName = JSON.parse('{{ step_list1 | escapejs }}');
+
+        // for(var i = 0; i < stepName.length; i++) {
+        //     var dataLess = $(`input[name="${stepName[i]}"]`).eq(0).data("less")
+        //     var length = $(`input[name="${stepName[i]}"]:checked`).length
+        //     if (lenght < data.less) {
+        //         alert("请确认" + stepName[i] + "是否选择正确")
+        //     }
+        // }
+
+        function setStorage() {
+
+            var radios = $('input[type="radio"]:checked');
+            var checkeds = $('input[type="checkbox"]:checked');
+            var array_radios = [];
+            var array_radios_price = [];
+            var array_checkeds = [];
+            var array_checkeds_price = [];
+
+            for (var i = 0; i < radios.length; i++) {
+                array_radios.push($(radios[i]).attr("data-index-number"))
+                var itemPrice = $("#" + $(radios[i]).attr("data-index-number")).text();
+                array_radios_price.push(itemPrice)
+            }
+            for (var j = 0; j < checkeds.length; j++) {
+                array_checkeds.push($(checkeds[j]).attr("data-index-number"))
+                var itemPrice = $("#" + $(checkeds[j]).attr("data-index-number")).text();
+                array_checkeds_price.push(itemPrice)
+            }
+
+            var arrayTotal = array_radios.concat(array_checkeds)
+            var arrayPrice = array_radios_price.concat(array_checkeds_price)
+
+            var localData = JSON.parse(localStorage.getItem("productId"))
+            var localPrice = JSON.parse(localStorage.getItem("productPrice"))
+
+            if (localData !== null || localPrice !== null) {
+                if (localData.length !== 0) {
+                    localData = localData.concat(arrayTotal)
+                }
+
+                if (localPrice.length !== 0) {
+                    localPrice = localPrice.concat(arrayPrice)
+                }
+
+            } else {
+                localData = arrayTotal;
+                localPrice = arrayPrice
+            }
+
+            localStorage.setItem("productId", JSON.stringify(localData));
+            localStorage.setItem("productPrice", JSON.stringify(localPrice));
+        }
+
+
+        $(".next").on("click", function () {
+            setStorage()
+        });
+
+        $(".add-parts-settings").on("click", function () {
+            setStorage();
+
+            var localData = JSON.parse(localStorage.getItem("productId"));
+            var localPrice = JSON.parse(localStorage.getItem("productPrice"));
+
+            if (localData !== null || localPrice !== null) {
+                localStorage.clear();
+                // 后台发送AJAX, localdata存储所有的productid, localPrice存储的是所有选中product的价钱
+                $.post("{% url "show_list:index_save_user" %}",
+                    {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        "localData": JSON.stringify(localData),
+                        "localPrice": JSON.stringify(localPrice),
+                        "z-name": '{{ z2_mini_g4.name }}'
+                    },
+                    function (data) {
+                        if (data.res == 1) {
+                            alert("配置保存ok，可以去我的配置查看详情")
+                        } else
+                            alert("保存失败")
+                    }
+                );
+                console.log(localData)
+            } else {
+                alert("选项为空 ")
+            }
+        });
+        $(".expoot-excel").on("click", function () {
+            setStorage();
+
+            var localData = JSON.parse(localStorage.getItem("productId"));
+            var localPrice = JSON.parse(localStorage.getItem("productPrice"));
+
+            if (localData !== null || localPrice !== null) {
+                localStorage.clear();
+                // 后台发送AJAX, localdata存储所有的productid, localPrice存储的是所有选中product的价钱
+                $.post("{% url "show_list:index_export_excel" %}",
+                    {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        "localData": JSON.stringify(localData),
+                        "localPrice": JSON.stringify(localPrice),
+                        "z-name": '{{ z2_mini_g4.name }}'
+                    },
+                    function (data) {
+                        if (data.res == 1) {
+                            window.open(data)
+                        } else
+                            alert("保存失败")
+                    }
+                );
+                console.log(localData)
+            } else {
+                alert("选项为空 ")
+            }
+        })
+
+
+    </script>
+{% endblock content %}

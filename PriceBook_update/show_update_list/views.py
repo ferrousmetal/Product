@@ -1066,7 +1066,7 @@ class Test(View):
         for i in contacts:
             step_list.append(i.name)
         step_list1 = json.dumps(step_list)
-        html = render_to_string('PWS_PR_PriceBook/Z2_mini_G4.html', locals())
+        html = render_to_string('PWS_PR_PriceBook/配置规则.html', locals())
         return JsonResponse(
             {"res": 1, "html": html, "cateName": z2_mini_g4.name, "step_list1": step_list1, "rules_id": rules_id})
 
@@ -1083,7 +1083,7 @@ class Test2(View):
         for i in contacts:
             step_list.append(i.name)
         step_list1 = json.dumps(step_list)
-        html = render_to_string('PWS_PR_PriceBook/Z2_mini_G4.html', locals())
+        html = render_to_string('PWS_PR_PriceBook/配置规则.html', locals())
         return JsonResponse({"res": 1, "html": html, "step_list1": step_list1, "label_name": label_name})
 
 
@@ -1347,7 +1347,7 @@ class IndexExportExcel(View):
             w.write(0, 3, u"List Price")
             excel_row = 1
             for pro in localData:
-                k=Product.objects.get(id=int(pro))
+                k = Product.objects.get(id=int(pro))
                 w.write(excel_row, 0, k.name)
                 w.write(excel_row, 1, k.descrip)
                 w.write(excel_row, 2, k.End_of_Manufacturing)
