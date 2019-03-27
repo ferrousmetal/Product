@@ -989,6 +989,7 @@ class showUserRules(View):
         rules = label.userassemble_set.all()
         qty = label.pro_number
         count = label.total_count
+        print(label,qty,count )
         pro = []
         for i in rules:
             pro.append(Product.objects.get(id=int(i.data_index_number)).name)

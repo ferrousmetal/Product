@@ -2,76 +2,80 @@
 {% block title %}<title>我的配置详细</title>{% endblock title %}
 {% block content %}
     <div class="col-md-8 col-md-offset-2 col-xs-12">
-        <h3 style="text-align: center;">我的详细配置</h3>
+    <h3 style="text-align: center;">我的详细配置</h3>
 
-        <div class="table-responsive customer-table">
-            <div class="table-responsive">
-                <button type="button" class="btn btn-primary add-parts-settings pull-right" data-toggle="modal"
-                        data-target="#edit-settings">编辑
-                </button>
-                <br>
-                <table>
-                    <thead>
-                    <tr class="table-caption">
-                        <th width="300">所属部件</th>
-                        <th>部件定货号</th>
-                        <th width="300">产品描述</th>
-                        <th>End of Manufacturing</th>
-                        <th>List Price</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for pros in pro_list %}
-                        <tr class="pro-step-name">
-                            {% for stem,pro in pros.items %}
-                                <td>{{ stem }}</td>
-                                <td class="product-part-no">{{ pro.name }}</td>
-                                <td>{{ pro.descrip }}</td>
-                                <td>{{ pro.End_of_Manufacturing }}</td>
-                                <td>{{ pro.List_Price }}</td>
-                            {% endfor %}
-                        </tr>
+    <div class="table-responsive customer-table">
+    <div class="table-responsive">
+        <button type="button" class="btn btn-primary add-parts-settings pull-right" data-toggle="modal"
+                data-target="#edit-settings">编辑
+        </button>
+        <br>
+        <table>
+            <thead>
+            <tr class="table-caption">
+                <th width="300">所属部件</th>
+                <th>部件定货号</th>
+                <th width="300">产品描述</th>
+                <th>End of Manufacturing</th>
+                <th>List Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for pros in pro_list %}
+                <tr class="pro-step-name">
+                    {% for stem,pro in pros.items %}
+                        <td>{{ stem }}</td>
+                        <td class="product-part-no">{{ pro.name }}</td>
+                        <td>{{ pro.descrip }}</td>
+                        <td>{{ pro.End_of_Manufacturing }}</td>
+                        <td>{{ pro.List_Price }}</td>
                     {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <a class="btn btn-primary pull-left" href="{% url "show_list:pdf" %}?id={{ id }}" type="button">下载Excel</a>
-            <div class="modal fade" id="edit-settings" role="dialog">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">编辑配置</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="category-page">
-                                <!-- <a href="" class="btn btn-primary add-parts-settings" type="button">增加</a> -->
-                                {#                        <div class="modal fade" id="edit-settings" role="dialog">#}
-                                {#                            <div class="modal-dialog modal-lg">#}
-                                {#                                <div class="modal-content">#}
-                                {#                                    <div class="modal-header">#}
-                                {#                                        <button type="button" class="close" data-dismiss="modal">&times;</button>#}
-                                {#                                        <h4 class="modal-title">编辑配置</h4>#}
-                                {#                                    </div>#}
-                                {#                                    <div class="modal-body">#}
-                                {#                                        <div class="category-page">#}
-                                {##}
-                                {#                                        </div>#}
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary check-isvalid">检查选项是否合格</button>
-                                <button type="button" class="btn btn-primary rule-button" id="rule_button">保存
-                                </button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                            </div>
-                        </div>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="pull-right" style="color:brown;">
+        <p><strong>选择产品:<span >{{ qty }}</span> 项 </strong></p>
+        <p><strong>单价总计:<span >{{ count }}</span> CNY</strong></p>
+    </div>
+    <a class="btn btn-primary pull-left" href="{% url "show_list:pdf" %}?id={{ id }}" type="button">下载Excel</a>
+    <div class="modal fade" id="edit-settings" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">编辑配置</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="category-page">
+                        <!-- <a href="" class="btn btn-primary add-parts-settings" type="button">增加</a> -->
+                        {#                        <div class="modal fade" id="edit-settings" role="dialog">#}
+                        {#                            <div class="modal-dialog modal-lg">#}
+                        {#                                <div class="modal-content">#}
+                        {#                                    <div class="modal-header">#}
+                        {#                                        <button type="button" class="close" data-dismiss="modal">&times;</button>#}
+                        {#                                        <h4 class="modal-title">编辑配置</h4>#}
+                        {#                                    </div>#}
+                        {#                                    <div class="modal-body">#}
+                        {#                                        <div class="category-page">#}
+                        {##}
+                        {#                                        </div>#}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary check-isvalid">检查选项是否合格</button>
+                        <button type="button" class="btn btn-primary rule-button" id="rule_button">保存
+                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                     </div>
                 </div>
-                <div class="pull-right" style="color:brown;">
-                    <p><strong>选择产品: <span id="total-item">{{ qty }}</span> 项 </strong></p>
-                    <p><strong>单价总计: <span id="total-price">{{ count }}</span> CNY</strong></p>
-                </div>
             </div>
+        </div>
+        <div class="pull-right" style="color:brown;">
+            <p><strong>选择产品: <span id="total-item">{{ qty }}</span> 项 </strong></p>
+            <p><strong>单价总计: <span id="total-price">{{ count }}</span> CNY</strong></p>
+        </div>
+    </div>
     <script>
         var categoryId = {{ z_category }};
         var pro_array = JSON.parse('{{ pro_array | escapejs }}');
