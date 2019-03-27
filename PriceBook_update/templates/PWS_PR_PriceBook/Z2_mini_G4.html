@@ -171,6 +171,9 @@
                     function (data) {
                         if (data.res == 1) {
                             alert("配置保存ok，可以去我的配置查看详情")
+                        }
+                        else if (data.res==2){
+                            window.location="/login/"
                         } else
                             alert("保存失败")
                     }

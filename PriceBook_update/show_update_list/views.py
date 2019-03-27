@@ -1303,24 +1303,27 @@ class IndexSaveRules(View):
         localPrice = request.POST.get('localPrice')
         name = request.POST.get('z-name')
         session_number = request.session.get('session_email')
-        localData = json.loads(localData)
-        localPrice = json.loads(localPrice)
-        pro_number = len(localData)
-        total_count = 0
-        for price in localPrice:
-            total_count = total_count + int(price)
-        vip_id = Huipu_User.objects.get(email=session_number).vip_range_id
-        if vip_id:
-            total_count = float(total_count) * float((Discount.objects.get(id=int(vip_id)).discount))
-        rules_name = name + '---' + str(uuid.uuid4())[:7]
-        user_id = Huipu_User.objects.get(email=session_number).id
-        rulesName.objects.create(name=rules_name, pro_number=pro_number, total_count=total_count,
-                                 blone_user_id=user_id)
-        assemble_id = rulesName.objects.get(name=rules_name).id
-        for array in sorted(localData):
-            userAssemble.objects.create(data_index_number=array,
-                                        assemble_name_id=assemble_id)
-        return JsonResponse({"res": 1})
+        if session_number:
+            localData = json.loads(localData)
+            localPrice = json.loads(localPrice)
+            pro_number = len(localData)
+            total_count = 0
+            for price in localPrice:
+                total_count = total_count + int(price)
+            vip_id = Huipu_User.objects.get(email=session_number).vip_range_id
+            if vip_id:
+                total_count = float(total_count) * float((Discount.objects.get(id=int(vip_id)).discount))
+            rules_name = name + '---' + str(uuid.uuid4())[:7]
+            user_id = Huipu_User.objects.get(email=session_number).id
+            rulesName.objects.create(name=rules_name, pro_number=pro_number, total_count=total_count,
+                                     blone_user_id=user_id)
+            assemble_id = rulesName.objects.get(name=rules_name).id
+            for array in sorted(localData):
+                userAssemble.objects.create(data_index_number=array,
+                                            assemble_name_id=assemble_id)
+            return JsonResponse({"res": 1})
+        else:
+            return JsonResponse({"res": 2})
 
 
 class IndexExportExcel(View):
