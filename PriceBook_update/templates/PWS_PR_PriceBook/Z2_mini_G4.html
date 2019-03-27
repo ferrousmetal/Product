@@ -21,7 +21,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for i in contacts %}
+            {% for i in step %}
                 <tr class="info">
                     <th>{{ i.name }}</th>
                     <th></th>
@@ -55,38 +55,14 @@
                 {% endfor %}
             {% endfor %}
             </tbody>
+
         </table>
     </div>
-
+    <button type="button" class="btn btn-default btn-sm add-parts-settings pull-left" data-toggle="modal"
+            data-target="#edit-settings">保存配置
+    </button>
     <div class="clearfix"></div>
-    <div class="pagination">
-    <span class="step-links">
-{#        {% if contacts.has_previous %}#}
-{#            <a href="?id={{ id }}&page={{ contacts.previous_page_number }}" class="previous">上一页</a>#}
-{#        {% endif %}#}
-
-        <span class="current">
-             {{ contacts.number }} / {{ contacts.paginator.num_pages }}
-        </span>
-
-        {% if contacts.has_next %}
-            <a href="?id={{ id }}&page={{ contacts.next_page_number }}" class="next">下一页</a>
-        {% endif %}
-    </span>
-    </div>
-
     <div class="pull-right display-total-price" style="color:brown;">
-        {% if contacts.has_next %}
-        {% else %}
-            <div class="pull-right" style="margin-top: -40px">
-                <button type="button" class="btn btn-default btn-sm add-parts-settings pull-left" data-toggle="modal"
-                        data-target="#edit-settings">保存配置
-                </button>
-{#                <button type="button" class="btn btn-default btn-sm expoot-excel pull-left" data-toggle="modal"#}
-{#                   data-target="#edit-settings">导出ExCel#}
-{#                </button>#}
-            </div>
-        {% endif %}
         <p><strong>选择产品: <span id="total-item">{{ qty }}</span> 项 </strong></p>
         <p><strong>单价总计: <span id="total-price">{{ count }}</span> CNY</strong></p>
         <p><strong>折扣价格: <span id="discount-price">xxx</span> CNY</strong></p>
@@ -171,9 +147,8 @@
                     function (data) {
                         if (data.res == 1) {
                             alert("配置保存ok，可以去我的配置查看详情")
-                        }
-                        else if (data.res==2){
-                            window.location="/login/"
+                        } else if (data.res == 2) {
+                            window.location = "/login/"
                         } else
                             alert("保存失败")
                     }
