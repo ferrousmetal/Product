@@ -76,17 +76,17 @@
     </div>
 
     <div class="pull-right display-total-price" style="color:brown;">
-      {% if contacts.has_next %}
-      {% else %}
-          <div class="pull-right" style="margin-top: -40px">
-            <button type="button" class="btn btn-default btn-sm add-parts-settings pull-left" data-toggle="modal"
-                    data-target="#edit-settings">保存配置
-            </button>
-            <a type="button" class="btn btn-default btn-sm add-parts-settings pull-left" data-toggle="modal"
-                    data-target="#edit-settings">导出ExCel
-            </a>
-          </div>
-      {% endif %}
+        {% if contacts.has_next %}
+        {% else %}
+            <div class="pull-right" style="margin-top: -40px">
+                <button type="button" class="btn btn-default btn-sm add-parts-settings pull-left" data-toggle="modal"
+                        data-target="#edit-settings">保存配置
+                </button>
+                <button type="button" class="btn btn-default btn-sm expoot-excel pull-left" data-toggle="modal"
+                   data-target="#edit-settings">导出ExCel
+                </button>
+            </div>
+        {% endif %}
         <p><strong>选择产品: <span id="total-item">{{ qty }}</span> 项 </strong></p>
         <p><strong>单价总计: <span id="total-price">{{ count }}</span> CNY</strong></p>
         <p><strong>折扣价格: <span id="discount-price">xxx</span> CNY</strong></p>
@@ -103,68 +103,112 @@
         //     }
         // }
 
-        function setStorage () {
+        function setStorage() {
 
-          var radios = $('input[type="radio"]:checked');
-          var checkeds = $('input[type="checkbox"]:checked');
-          var array_radios = [];
-          var array_radios_price = [];
-          var array_checkeds = [];
-          var array_checkeds_price = [];
+            var radios = $('input[type="radio"]:checked');
+            var checkeds = $('input[type="checkbox"]:checked');
+            var array_radios = [];
+            var array_radios_price = [];
+            var array_checkeds = [];
+            var array_checkeds_price = [];
 
-          for (var i = 0; i < radios.length; i++) {
-              array_radios.push($(radios[i]).attr("data-index-number"))
-              var itemPrice = $("#" + $(radios[i]).attr("data-index-number")).text();
-              array_radios_price.push(itemPrice)
-          }
-          for (var j = 0; j < checkeds.length; j++) {
-              array_checkeds.push($(checkeds[j]).attr("data-index-number"))
-              var itemPrice = $("#" + $(checkeds[j]).attr("data-index-number")).text();
-              array_checkeds_price.push(itemPrice)
-          }
-
-          var arrayTotal = array_radios.concat(array_checkeds)
-          var arrayPrice = array_radios_price.concat(array_checkeds_price)
-
-          var localData = JSON.parse(localStorage.getItem("productId"))
-          var localPrice = JSON.parse(localStorage.getItem("productPrice"))
-
-          if (localData !== null || localPrice !== null) {
-            if (localData.length !== 0 ) {
-              localData = localData.concat(arrayTotal)
+            for (var i = 0; i < radios.length; i++) {
+                array_radios.push($(radios[i]).attr("data-index-number"))
+                var itemPrice = $("#" + $(radios[i]).attr("data-index-number")).text();
+                array_radios_price.push(itemPrice)
+            }
+            for (var j = 0; j < checkeds.length; j++) {
+                array_checkeds.push($(checkeds[j]).attr("data-index-number"))
+                var itemPrice = $("#" + $(checkeds[j]).attr("data-index-number")).text();
+                array_checkeds_price.push(itemPrice)
             }
 
-            if (localPrice.length !== 0) {
-              localPrice = localPrice.concat(arrayPrice)
+            var arrayTotal = array_radios.concat(array_checkeds)
+            var arrayPrice = array_radios_price.concat(array_checkeds_price)
+
+            var localData = JSON.parse(localStorage.getItem("productId"))
+            var localPrice = JSON.parse(localStorage.getItem("productPrice"))
+
+            if (localData !== null || localPrice !== null) {
+                if (localData.length !== 0) {
+                    localData = localData.concat(arrayTotal)
+                }
+
+                if (localPrice.length !== 0) {
+                    localPrice = localPrice.concat(arrayPrice)
+                }
+
+            } else {
+                localData = arrayTotal;
+                localPrice = arrayPrice
             }
 
-          } else {
-            localData = arrayTotal
-            localPrice = arrayPrice
-          }
-
-          localStorage.setItem("productId", JSON.stringify(localData));
-          localStorage.setItem("productPrice", JSON.stringify(localPrice));
+            localStorage.setItem("productId", JSON.stringify(localData));
+            localStorage.setItem("productPrice", JSON.stringify(localPrice));
         }
 
 
-        $(".next").on("click", function() {
-          setStorage()
-        })
+        $(".next").on("click", function () {
+            setStorage()
+        });
 
         $(".add-parts-settings").on("click", function () {
-          setStorage()
+            setStorage();
 
-          var localData = JSON.parse(localStorage.getItem("productId"))
-          var localPrice = JSON.parse(localStorage.getItem("productPrice"))
+            var localData = JSON.parse(localStorage.getItem("productId"));
+            var localPrice = JSON.parse(localStorage.getItem("productPrice"));
 
-          if (localData !== null || localPrice !== null) {
-            localStorage.clear();
-            // 后台发送AJAX, localdata存储所有的productid, localPrice存储的是所有选中product的价钱
-            console.log(localData)
-          } else {
-            alert("选项为空 ")
-          }
+            if (localData !== null || localPrice !== null) {
+                localStorage.clear();
+                // 后台发送AJAX, localdata存储所有的productid, localPrice存储的是所有选中product的价钱
+                $.post("{% url "show_list:index_save_user" %}",
+                    {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        "localData": JSON.stringify(localData),
+                        "localPrice": JSON.stringify(localPrice),
+                        "z-name": '{{ z2_mini_g4.name }}'
+                    },
+                    function (data) {
+                        if (data.res == 1) {
+                            alert("配置保存ok，可以去我的配置查看详情")
+                        } else
+                            alert("保存失败")
+                    }
+                );
+                console.log(localData)
+            } else {
+                alert("选项为空 ")
+            }
+        });
+        $(".expoot-excel").on("click", function () {
+            setStorage();
+
+            var localData = JSON.parse(localStorage.getItem("productId"));
+            var localPrice = JSON.parse(localStorage.getItem("productPrice"));
+
+            if (localData !== null || localPrice !== null) {
+                localStorage.clear();
+                // 后台发送AJAX, localdata存储所有的productid, localPrice存储的是所有选中product的价钱
+                $.post("{% url "show_list:index_export_excel" %}",
+                    {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        "localData": JSON.stringify(localData),
+                        "localPrice": JSON.stringify(localPrice),
+                        "z-name": '{{ z2_mini_g4.name }}'
+                    },
+                    function (data) {
+                        if (data.res == 1) {
+                            window.open(data)
+                        } else
+                            alert("保存失败")
+                    }
+                );
+                console.log(localData)
+            } else {
+                alert("选项为空 ")
+            }
         })
+
+
     </script>
 {% endblock content %}

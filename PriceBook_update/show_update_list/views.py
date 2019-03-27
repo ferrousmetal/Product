@@ -41,6 +41,7 @@ class Z2_mini_G4(View):
         contacts = Page(step, page)
         return render(request, "PWS_PR_PriceBook/Z2_mini_G4.html", locals())
 
+
 class Monitor(View):
     """Monitor"""
 
@@ -220,8 +221,8 @@ class Admin(View):
 
     def get(self, request):
         if request.session['session_email']:
-            email=request.session['session_email']
-            user=Huipu_User.objects.get(email=email)
+            email = request.session['session_email']
+            user = Huipu_User.objects.get(email=email)
             if user.super_user:
                 pro_categorys = Z_Category.objects.all()
                 other_categorys = Other_category.objects.all()
@@ -927,7 +928,7 @@ class saveUserRules(View):
 
 
 class saveUserRules2(View):
-    """"""
+    """新建配置规则"""
 
     def post(self, request):
         session_number = request.session.get('session_email')
@@ -1066,7 +1067,8 @@ class Test(View):
             step_list.append(i.name)
         step_list1 = json.dumps(step_list)
         html = render_to_string('PWS_PR_PriceBook/Z2_mini_G4.html', locals())
-        return JsonResponse({"res": 1, "html": html, "cateName": z2_mini_g4.name, "step_list1": step_list1, "rules_id": rules_id})
+        return JsonResponse(
+            {"res": 1, "html": html, "cateName": z2_mini_g4.name, "step_list1": step_list1, "rules_id": rules_id})
 
 
 class Test2(View):
@@ -1282,11 +1284,83 @@ class PDF(View):
             exist_file = os.path.exists("%s.xls" % (label.name))
             if exist_file:
                 os.remove(r"%s.xls" % (label.name))
-            ws.save("%s.xls"%(label.name))
+            ws.save("%s.xls" % (label.name))
             sio = BytesIO()
             ws.save(sio)
             sio.seek(0)
             response = HttpResponse(sio.getvalue(), content_type='application/vnd.ms-excel')
-            response['Content-Disposition'] = 'attachment; filename=%s.xls'%(label.name)
+            response['Content-Disposition'] = 'attachment; filename=%s.xls' % (label.name)
+            response.write(sio.getvalue())
+            return response
+
+
+class IndexSaveRules(View):
+    """首页保存配置规则"""
+
+    def post(self, request):
+        localData = request.POST.get('localData')
+        localPrice = request.POST.get('localPrice')
+        name = request.POST.get('z-name')
+        session_number = request.session.get('session_email')
+        localData = json.loads(localData)
+        localPrice = json.loads(localPrice)
+        pro_number = len(localData)
+        total_count = 0
+        for price in localPrice:
+            total_count = total_count + int(price)
+        vip_id = Huipu_User.objects.get(email=session_number).vip_range_id
+        if vip_id:
+            total_count = float(total_count) * float((Discount.objects.get(id=int(vip_id)).discount))
+        rules_name = name + '---' + str(uuid.uuid4())[:7]
+        user_id = Huipu_User.objects.get(email=session_number).id
+        rulesName.objects.create(name=rules_name, pro_number=pro_number, total_count=total_count,
+                                 blone_user_id=user_id)
+        assemble_id = rulesName.objects.get(name=rules_name).id
+        for array in sorted(localData):
+            userAssemble.objects.create(data_index_number=array,
+                                        assemble_name_id=assemble_id)
+        return JsonResponse({"res": 1})
+
+
+class IndexExportExcel(View):
+    """
+        导出excel表格
+        """
+
+    def post(self, request):
+        localData = request.POST.get('localData')
+        localPrice = request.POST.get('localPrice')
+        name = request.POST.get('z-name')
+        localData = json.loads(localData)
+        localPrice = json.loads(localPrice)
+        pro_number = len(localData)
+        total_count = 0
+        for price in localPrice:
+            total_count = total_count + int(price)
+        excel_name = name + '---' + str(uuid.uuid4())[:7]
+        if localData:
+            ws = xlwt.Workbook(encoding='utf8')
+            w = ws.add_sheet(u"%s" % (excel_name))
+            w.write(0, 0, u"部件订货号")
+            w.write(0, 1, u"产品描述")
+            w.write(0, 2, u"End of Manufacturing")
+            w.write(0, 3, u"List Price")
+            excel_row = 1
+            for pro in localData:
+                k=Product.objects.get(id=int(pro))
+                w.write(excel_row, 0, k.name)
+                w.write(excel_row, 1, k.descrip)
+                w.write(excel_row, 2, k.End_of_Manufacturing)
+                w.write(excel_row, 3, k.List_Price)
+                excel_row += 1
+            exist_file = os.path.exists("%s.xls" % (excel_name))
+            if exist_file:
+                os.remove(r"%s.xls" % (excel_name))
+            ws.save("%s.xls" % (excel_name))
+            sio = BytesIO()
+            ws.save(sio)
+            sio.seek(0)
+            response = HttpResponse(sio.getvalue(), content_type='application/vnd.ms-excel')
+            response['Content-Disposition'] = 'attachment; filename=%s.xls' % (excel_name)
             response.write(sio.getvalue())
             return response

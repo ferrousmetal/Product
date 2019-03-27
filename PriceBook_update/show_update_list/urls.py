@@ -82,5 +82,7 @@ urlpatterns=[
     url(r'^add_amo_step/',AddAmoStep.as_view(),name='add_amo_step'),
     url(r'^del_amo_step/',DelAmoStep.as_view(),name='del_amo_step'),
     url(r'^pdf/',PDF.as_view(),name='pdf'),
+    url(r'^index_save_user/',IndexSaveRules.as_view(),name='index_save_user'),
+    url(r'^index_export_excel/',IndexExportExcel.as_view(),name='index_export_excel'),
     url(r'',Index.as_view(),name='index'),
     ]

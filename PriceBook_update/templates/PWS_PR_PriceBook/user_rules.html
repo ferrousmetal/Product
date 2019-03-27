@@ -5,11 +5,11 @@
     <h3 style="text-align: center;">我的详细配置</h3>
 
     <div class="table-responsive customer-table">
-    <button type="button" class="btn btn-primary add-parts-settings pull-right" data-toggle="modal"
-            data-target="#edit-settings">编辑
-    </button>
-    <br>
     <div class="table-responsive">
+        <button type="button" class="btn btn-primary add-parts-settings pull-right" data-toggle="modal"
+                data-target="#edit-settings">编辑
+        </button>
+        <br>
         <table>
             <thead>
             <tr class="table-caption">
@@ -37,38 +37,42 @@
     </div>
     <a class="btn btn-primary pull-left" href="{% url "show_list:pdf" %}?id={{ id }}" type="button">下载Excel</a>
     <div class="modal fade" id="edit-settings" role="dialog">
-    <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">编辑配置</h4>
-    </div>
-    <div class="modal-body">
-        <div class="category-page">
-            <!-- <a href="" class="btn btn-primary add-parts-settings" type="button">增加</a> -->
-            <div class="modal fade" id="edit-settings" role="dialog">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">编辑配置</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="category-page">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">编辑配置</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="category-page">
+                        <!-- <a href="" class="btn btn-primary add-parts-settings" type="button">增加</a> -->
+                        <div class="modal fade" id="edit-settings" role="dialog">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">编辑配置</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="category-page">
 
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary check-isvalid">检查选项是否合格</button>
+                                        <button type="button" class="btn btn-primary rule-button" id="rule_button">保存
+                                        </button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary check-isvalid">检查选项是否合格</button>
-                            <button type="button" class="btn btn-primary rule-button" id="rule_button">保存</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <div class="pull-right" style="color:brown;">
+                            <p><strong>选择产品: <span id="total-item">{{ qty }}</span> 项 </strong></p>
+                            <p><strong>单价总计: <span id="total-price">{{ count }}</span> CNY</strong></p>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="pull-right" style="color:brown;">
-                <p><strong>选择产品: <span id="total-item">{{ qty }}</span> 项 </strong></p>
-                <p><strong>单价总计: <span id="total-price">{{ count }}</span> CNY</strong></p>
             </div>
         </div>
     </div>
