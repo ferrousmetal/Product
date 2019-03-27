@@ -23,6 +23,10 @@
 
 
             $(document).ready(function () {
+              $(".category-name").on("click", function() {
+                localStorage.clear();
+              })
+
               function getSum(total, num) {
                 return total + Math.round(num);
               }
@@ -241,11 +245,11 @@
                                 <li><a href="{% url "show_list:ISV_sales_tool" %}">ISV销售工具</a></li>
                                 {% for category in category_list %}
                                     <li>
-                                        <a href="{% url "show_list:Z2_mini_G4" %}?id={{ category.id }}">{{ category.name }}</a>
+                                        <a href="{% url "show_list:Z2_mini_G4" %}?id={{ category.id }}" class="category-name">{{ category.name }}</a>
                                     </li>
                                 {% endfor %}
-                                <li><a href="{% url "show_list:monitor" %}">Monitor</a></li>
-                                <li><a href="{% url "show_list:amo" %}">AMO</a></li>
+                                <li><a href="{% url "show_list:monitor" %}" class="category-name">Monitor</a></li>
+                                <li><a href="{% url "show_list:amo" %}" class="category-name">AMO</a></li>
                             </ul>
                         </li>
 
@@ -253,10 +257,10 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">服务
                                 <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{% url "show_update_list:pao_inner" %}">保内升级服务</a></li>
-                                <li><a href="{% url "show_update_list:pao_out" %}">保外延长服务</a></li>
-                                <li><a href="{% url "show_list:custom_deploy" %}">定制及部署服务</a></li>
-                                <li><a href="{% url "show_list:customadded_service" %}">增值服务</a></li>
+                                <li><a href="{% url "show_update_list:pao_inner" %}" class="category-name">保内升级服务</a></li>
+                                <li><a href="{% url "show_update_list:pao_out" %}" class="category-name">保外延长服务</a></li>
+                                <li><a href="{% url "show_list:custom_deploy" %}" class="category-name">定制及部署服务</a></li>
+                                <li><a href="{% url "show_list:customadded_service" %}" class="category-name">增值服务</a></li>
                             </ul>
                         </li>
                     </ul>
